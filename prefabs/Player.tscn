@@ -1,10 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://ca6iv0stxicwi"]
+[gd_scene load_steps=5 format=3 uid="uid://ca6iv0stxicwi"]
 
 [ext_resource type="Texture2D" uid="uid://tuu7vfk3ir56" path="res://icon.svg" id="1_lsuk0"]
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_oyscp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ctlwm"]
 size = Vector2(127, 127)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cpirc"]
+bg_color = Color(0.905882, 0.298039, 0.235294, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_oyscp")
@@ -15,3 +22,39 @@ texture = ExtResource("1_lsuk0")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -0.5)
 shape = SubResource("RectangleShape2D_ctlwm")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HPLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -212.0
+offset_top = -43.0
+offset_right = -172.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "HP"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="HPBar" type="ProgressBar" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -164.0
+offset_top = -43.0
+offset_right = 164.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/fill = SubResource("StyleBoxFlat_cpirc")
+step = 1.0
+value = 100.0
+rounded = true
+show_percentage = false
