@@ -4,6 +4,7 @@ extends CharacterBody2D
 const SPEED = 300.0
 
 @onready var healthbar = $CanvasLayer/HPBar as ProgressBar
+signal on_death
 
 func _physics_process(_delta):
 	var new_velocity = Vector2.ZERO
@@ -20,3 +21,5 @@ func _physics_process(_delta):
 
 func take_damage(damage: int) -> void:
 	healthbar.value -= damage
+	if healthbar.value == 0:
+		on_death.emit()
