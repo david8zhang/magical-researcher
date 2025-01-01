@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cu45ewep1oi1m"]
+
+[ext_resource type="Texture2D" uid="uid://tuu7vfk3ir56" path="res://icon.svg" id="1_b3uvf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0g5kt"]
+size = Vector2(32, 32)
+
+[node name="SpellProjectile" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0, 1, 1)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_b3uvf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0g5kt")

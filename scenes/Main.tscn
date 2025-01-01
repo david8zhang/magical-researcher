@@ -1,11 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://c7lngg8cjax0u"]
+[gd_scene load_steps=5 format=3 uid="uid://c7lngg8cjax0u"]
 
 [ext_resource type="Script" path="res://scripts/Game.gd" id="1_56j8m"]
 [ext_resource type="PackedScene" uid="uid://ca6iv0stxicwi" path="res://prefabs/Player.tscn" id="2_nutke"]
+[ext_resource type="PackedScene" uid="uid://domjmq360jx24" path="res://prefabs/SpellManager.tscn" id="2_wtpks"]
 [ext_resource type="PackedScene" uid="uid://wsaic2bsqmqj" path="res://prefabs/DebugMenu.tscn" id="3_v02s0"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_56j8m")
+
+[node name="SpellManager" parent="." instance=ExtResource("2_wtpks")]
 
 [node name="Player" parent="." instance=ExtResource("2_nutke")]
 slide_on_ceiling = false
