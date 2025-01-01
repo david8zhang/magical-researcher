@@ -29,7 +29,7 @@ func _input(event):
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if active_spell != null:
-				active_spell.cast(global_position, event.position)
+				active_spell.cast(global_position, event.position, Game.Side.Player)
 
 func take_damage(damage: int) -> void:
 	healthbar.value -= damage
