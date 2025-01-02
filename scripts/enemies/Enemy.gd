@@ -14,7 +14,10 @@ var roam_dest = null
 var roam_wait_time = -1
 var roam_state = RoamingState.IDLE
 
+signal on_death
+
 @onready var game = get_node("/root/Main") as Game
+@onready var healthbar = $ProgressBar as ProgressBar
 
 func move_to_position(target_position: Vector2):
 	var dist_to_target = global_position.distance_to(target_position)
@@ -53,3 +56,9 @@ func _get_random_destination():
 	var x_diff = randi_range(50, 200) * (-1 if randi_range(0, 1) == 0 else 1)
 	var y_diff = randi_range(50, 200) * (-1 if randi_range(0, 1) == 0 else 1)
 	return Vector2(global_position.x + x_diff, global_position.y + y_diff)
+
+func take_damage(damage):
+	healthbar.value -= damage
+	if healthbar.value == 0:
+		on_death.emit()
+		queue_free()

@@ -17,8 +17,9 @@ gravity_scale = 2.66454e-15
 lock_rotation = true
 script = ExtResource("1_dablm")
 
-[node name="BasicEnemyAI" parent="." node_paths=PackedStringArray("blackboard") instance=ExtResource("2_e4t6s")]
-blackboard = NodePath("@Node@325872")
+[node name="BasicEnemyAI" parent="." node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("2_e4t6s")]
+blackboard = NodePath("@Node@348511")
+actor = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(1, 0, 0, 1)
@@ -34,5 +35,7 @@ offset_top = -39.0
 offset_right = 39.0
 offset_bottom = -32.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_fay81")
-value = 100.0
+max_value = 20.0
+step = 1.0
+value = 20.0
 show_percentage = false
