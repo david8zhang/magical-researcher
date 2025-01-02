@@ -4,6 +4,7 @@ extends CharacterBody2D
 const SPEED = 300.0
 
 @onready var healthbar = $CanvasLayer/HPBar as ProgressBar
+@onready var camera = $Camera2D as Camera2D
 var active_spell: DamageSpell
 
 signal on_death
@@ -29,7 +30,14 @@ func _input(event):
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if active_spell != null:
-				active_spell.cast(global_position, event.position, Game.Side.Player)
+				active_spell.cast(global_position, convert_to_world_pos(event.position), Game.Side.Player)
+
+
+func convert_to_world_pos(mouse_position: Vector2):
+	var origin = get_viewport_rect().get_center()
+	var x_diff = mouse_position.x - origin.x
+	var y_diff = mouse_position.y - origin.y
+	return Vector2(global_position.x + x_diff, global_position.y + y_diff)
 
 func take_damage(damage: int) -> void:
 	healthbar.value -= damage

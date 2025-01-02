@@ -1,10 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://8ci0q8sn5c17"]
+[gd_scene load_steps=6 format=3 uid="uid://8ci0q8sn5c17"]
 
 [ext_resource type="Texture2D" uid="uid://tuu7vfk3ir56" path="res://icon.svg" id="1_ck1wg"]
-[ext_resource type="Script" path="res://scripts/BasicEnemy.gd" id="1_qra0h"]
+[ext_resource type="Script" path="res://scripts/enemies/BasicEnemy.gd" id="1_dablm"]
+[ext_resource type="PackedScene" uid="uid://bvhyeul1hncre" path="res://prefabs/enemies/BasicEnemyAI.tscn" id="2_e4t6s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s3gvr"]
-size = Vector2(96, 96)
+size = Vector2(52, 52)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fay81"]
 bg_color = Color(1, 0, 0, 1)
@@ -12,22 +13,26 @@ bg_color = Color(1, 0, 0, 1)
 [node name="BasicEnemy" type="RigidBody2D"]
 collision_layer = 2
 collision_mask = 4
+gravity_scale = 2.66454e-15
 lock_rotation = true
-script = ExtResource("1_qra0h")
+script = ExtResource("1_dablm")
+
+[node name="BasicEnemyAI" parent="." node_paths=PackedStringArray("blackboard") instance=ExtResource("2_e4t6s")]
+blackboard = NodePath("@Node@325872")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(1, 0, 0, 1)
-scale = Vector2(0.75, 0.75)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("1_ck1wg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_s3gvr")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
-offset_left = -58.0
-offset_top = -67.0
-offset_right = 58.0
-offset_bottom = -56.0
+offset_left = -39.0
+offset_top = -39.0
+offset_right = 39.0
+offset_bottom = -32.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_fay81")
 value = 100.0
 show_percentage = false

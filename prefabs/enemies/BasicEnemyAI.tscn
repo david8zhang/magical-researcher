@@ -1,0 +1,42 @@
+[gd_scene load_steps=9 format=3 uid="uid://bvhyeul1hncre"]
+
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="1_mnleg"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="2_qbvdl"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="3_f8xx4"]
+[ext_resource type="Script" path="res://scripts/enemies/behaviors/IsPlayerWithinVisionRange.gd" id="4_mffip"]
+[ext_resource type="Script" path="res://scripts/enemies/behaviors/IsPlayerWithinSpellRange.gd" id="5_lxmyf"]
+[ext_resource type="Script" path="res://scripts/enemies/behaviors/CastDamageSpell.gd" id="6_6nvd3"]
+[ext_resource type="Script" path="res://scripts/enemies/behaviors/ChasePlayer.gd" id="7_u1a5f"]
+[ext_resource type="Script" path="res://scripts/enemies/behaviors/Roam.gd" id="8_ja57t"]
+
+[node name="BasicEnemyAI" type="Node" node_paths=PackedStringArray("blackboard", "actor")]
+script = ExtResource("1_mnleg")
+blackboard = NodePath("@Node@286165")
+actor = NodePath("")
+
+[node name="RootSelector" type="Node" parent="."]
+script = ExtResource("2_qbvdl")
+
+[node name="Attack" type="Node" parent="RootSelector"]
+script = ExtResource("3_f8xx4")
+
+[node name="IsPlayerWithinVisionRange" type="Node" parent="RootSelector/Attack"]
+script = ExtResource("4_mffip")
+
+[node name="CastSpell" type="Node" parent="RootSelector/Attack"]
+script = ExtResource("2_qbvdl")
+
+[node name="CastSpellSequence" type="Node" parent="RootSelector/Attack/CastSpell"]
+script = ExtResource("3_f8xx4")
+
+[node name="IsPlayerWithinSpellRange" type="Node" parent="RootSelector/Attack/CastSpell/CastSpellSequence"]
+script = ExtResource("5_lxmyf")
+
+[node name="CastDamageSpell" type="Node" parent="RootSelector/Attack/CastSpell/CastSpellSequence"]
+script = ExtResource("6_6nvd3")
+
+[node name="ChasePlayer" type="Node" parent="RootSelector/Attack/CastSpell"]
+script = ExtResource("7_u1a5f")
+
+[node name="Roam" type="Node" parent="RootSelector"]
+script = ExtResource("8_ja57t")
