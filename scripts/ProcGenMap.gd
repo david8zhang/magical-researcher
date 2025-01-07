@@ -12,6 +12,24 @@ var chunk_height = 64
 
 var loaded_chunks = []
 
+var DARK_GRASS_NORTH_EDGE = Vector2i(1, 0)
+var DARK_GRASS_WEST_EDGE = Vector2i(2, 0)
+var DARK_GRASS_EAST_EDGE = Vector2i(3, 0)
+var DARK_GRASS_SOUTH_EDGE = Vector2i(4, 0)
+var DARK_GRASS_NORTH_EAST_CORNER = Vector2i(5, 0)
+var DARK_GRASS_SOUTH_WEST_CORNER = Vector2i(6, 0)
+var DARK_GRASS_NORTH_WEST_CORNER = Vector2i(7, 0)
+var DARK_GRASS_SOUTH_EAST_CORNER = Vector2i(8, 0)
+
+var DIRT_NORTH_EDGE = Vector2i(1, 1)
+var DIRT_WEST_EDGE = Vector2i(2, 1)
+var DIRT_EAST_EDGE = Vector2i(3, 1)
+var DIRT_SOUTH_EDGE = Vector2i(4, 1)
+var DIRT_NORTH_EAST_CORNER = Vector2i(5, 1)
+var DIRT_SOUTH_WEST_CORNER = Vector2i(6, 1)
+var DIRT_NORTH_WEST_CORNER = Vector2i(7, 1)
+var DIRT_SOUTH_EAST_CORNER = Vector2i(8, 1)
+
 func _ready():
 	altitude.seed = randi()
 	altitude.frequency = 0.005
@@ -54,6 +72,146 @@ func generate_chunk(pos: Vector2):
 			# Add chunk to loaded chunks
 			if Vector2i(pos.x, pos.y) not in loaded_chunks:
 				loaded_chunks.append(Vector2i(pos.x, pos.y))
+
+	# Fill in corner / edge tiles
+	fill_in_edges(pos)
+
+func fill_in_edges(pos: Vector2):
+	for x in range(chunk_width):
+		for y in range(chunk_height):
+			var tile_x = pos.x - (chunk_width / 2) + x
+			var tile_y = pos.y - (chunk_width / 2) + y
+			# var cell_atlas_coords = get_cell_atlas_coords(0, pos)
+			var tile_type = get_tile_type(Vector2(tile_x, tile_y))
+			set_cell(0, Vector2i(tile_x, tile_y), 0, tile_type)
+
+	
+func get_neighbors(pos: Vector2):
+	var neighbor_above = Vector2i(pos.x, pos.y - 1)
+	var neighbor_below = Vector2i(pos.x, pos.y + 1)
+	var neighbor_left = Vector2i(pos.x - 1, pos.y)
+	var neighbor_right = Vector2i(pos.x + 1, pos.y)
+	return [
+		get_cell_atlas_coords(0, neighbor_above),
+		get_cell_atlas_coords(0, neighbor_below),
+		get_cell_atlas_coords(0, neighbor_left),
+		get_cell_atlas_coords(0, neighbor_right)
+	]
+
+
+func get_tile_type(pos: Vector2):
+	if is_dirt_tile(pos):
+		if is_upper_edge(pos):
+			return DIRT_NORTH_EDGE
+		elif is_lower_edge(pos):
+			return DIRT_SOUTH_EDGE
+		elif is_west_edge(pos):
+			return DIRT_WEST_EDGE
+		elif is_east_edge(pos):
+			return DIRT_EAST_EDGE
+		elif is_northwest_corner(pos):
+			return DIRT_NORTH_WEST_CORNER
+		elif is_southwest_corner(pos):
+			return DIRT_SOUTH_WEST_CORNER
+		elif is_northeast_corner(pos):
+			return DIRT_NORTH_EAST_CORNER
+		elif is_southeast_corner(pos):
+			return DIRT_SOUTH_EAST_CORNER
+		else:
+			return Vector2i(0, 1)
+	elif is_dark_grass_tile(pos):
+		if is_upper_edge(pos):
+			return DARK_GRASS_NORTH_EDGE
+		elif is_lower_edge(pos):
+			return DARK_GRASS_SOUTH_EDGE
+		elif is_west_edge(pos):
+			return DARK_GRASS_WEST_EDGE
+		elif is_east_edge(pos):
+			return DARK_GRASS_EAST_EDGE
+		elif is_northwest_corner(pos):
+			return DARK_GRASS_NORTH_WEST_CORNER
+		elif is_southwest_corner(pos):
+			return DARK_GRASS_SOUTH_WEST_CORNER
+		elif is_northeast_corner(pos):
+			return DARK_GRASS_NORTH_EAST_CORNER
+		elif is_southeast_corner(pos):
+			return DARK_GRASS_SOUTH_EAST_CORNER
+		else:
+			return Vector2i(0, 0)
+	else:
+		return Vector2i(0, 2)
+
+func is_dirt_tile(tile_pos: Vector2):
+	var cell_atlas_coords = get_cell_atlas_coords(0, tile_pos)
+	return cell_atlas_coords.y == 1
+
+func is_dark_grass_tile(tile_pos: Vector2):
+	var cell_atlas_coords = get_cell_atlas_coords(0, tile_pos)
+	return cell_atlas_coords.y == 0
+
+func is_upper_edge(pos: Vector2):
+	var neighbors = get_neighbors(pos)
+	var curr_cell = get_cell_atlas_coords(0, pos)
+	return neighbors[0].y != curr_cell.y \
+		and neighbors[1].y == curr_cell.y \
+		and neighbors[2].y == curr_cell.y \
+		and neighbors[3].y == curr_cell.y
+
+func is_lower_edge(pos: Vector2):
+	var neighbors = get_neighbors(pos)
+	var curr_cell = get_cell_atlas_coords(0, pos)
+	return neighbors[0].y == curr_cell.y \
+		and neighbors[1].y != curr_cell.y \
+		and neighbors[2].y == curr_cell.y \
+		and neighbors[3].y == curr_cell.y
+
+func is_west_edge(pos: Vector2):
+	var neighbors = get_neighbors(pos)
+	var curr_cell = get_cell_atlas_coords(0, pos)
+	return neighbors[0].y == curr_cell.y \
+		and neighbors[1].y == curr_cell.y \
+		and neighbors[2].y != curr_cell.y \
+		and neighbors[3].y == curr_cell.y
+
+func is_east_edge(pos: Vector2):
+	var neighbors = get_neighbors(pos)
+	var curr_cell = get_cell_atlas_coords(0, pos)
+	return neighbors[0].y == curr_cell.y \
+		and neighbors[1].y == curr_cell.y \
+		and neighbors[2].y == curr_cell.y \
+		and neighbors[3].y != curr_cell.y
+
+func is_northwest_corner(pos: Vector2):
+	var neighbors = get_neighbors(pos)
+	var curr_cell = get_cell_atlas_coords(0, pos)
+	return neighbors[0].y != curr_cell.y \
+		and neighbors[1].y == curr_cell.y \
+		and neighbors[2].y != curr_cell.y \
+		and neighbors[3].y == curr_cell.y
+
+func is_southwest_corner(pos: Vector2):
+	var neighbors = get_neighbors(pos)
+	var curr_cell = get_cell_atlas_coords(0, pos)
+	return neighbors[0].y == curr_cell.y \
+		and neighbors[1].y != curr_cell.y \
+		and neighbors[2].y != curr_cell.y \
+		and neighbors[3].y == curr_cell.y
+
+func is_northeast_corner(pos: Vector2):
+	var neighbors = get_neighbors(pos)
+	var curr_cell = get_cell_atlas_coords(0, pos)
+	return neighbors[0].y != curr_cell.y \
+		and neighbors[1].y == curr_cell.y \
+		and neighbors[2].y == curr_cell.y \
+		and neighbors[3].y != curr_cell.y
+
+func is_southeast_corner(pos: Vector2):
+	var neighbors = get_neighbors(pos)
+	var curr_cell = get_cell_atlas_coords(0, pos)
+	return neighbors[0].y == curr_cell.y \
+		and neighbors[1].y != curr_cell.y \
+		and neighbors[2].y == curr_cell.y \
+		and neighbors[3].y != curr_cell.y
 
 func unload_distant_chunks(player_pos):
 	var unload_dist = (chunk_width * 2) + 1
