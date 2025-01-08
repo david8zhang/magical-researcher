@@ -5,8 +5,8 @@ var altitude = FastNoiseLite.new()
 var moisture = FastNoiseLite.new()
 
 # chunk width and height in tiles
-var chunk_width = 64
-var chunk_height = 64
+var chunk_width = 48
+var chunk_height = 48
 
 @onready var game = get_node("/root/Main") as Game
 
@@ -20,6 +20,12 @@ var DARK_GRASS_NORTH_EAST_CORNER = Vector2i(5, 0)
 var DARK_GRASS_SOUTH_WEST_CORNER = Vector2i(6, 0)
 var DARK_GRASS_NORTH_WEST_CORNER = Vector2i(7, 0)
 var DARK_GRASS_SOUTH_EAST_CORNER = Vector2i(8, 0)
+var DARK_GRASS_NORTH_CORNER = Vector2i(9, 0)
+var DARK_GRASS_SOUTH_CORNER = Vector2i(10, 0)
+var DARK_GRASS_WEST_CORNER = Vector2i(11, 0)
+var DARK_GRASS_EAST_CORNER = Vector2i(12, 0)
+var DARK_GRASS_TUNNEL = Vector2i(6, 2)
+var DARK_GRASS_PATCH = Vector2i(8, 2)
 
 var DIRT_NORTH_EDGE = Vector2i(1, 1)
 var DIRT_WEST_EDGE = Vector2i(2, 1)
@@ -29,6 +35,12 @@ var DIRT_NORTH_EAST_CORNER = Vector2i(5, 1)
 var DIRT_SOUTH_WEST_CORNER = Vector2i(6, 1)
 var DIRT_NORTH_WEST_CORNER = Vector2i(7, 1)
 var DIRT_SOUTH_EAST_CORNER = Vector2i(8, 1)
+var DIRT_NORTH_CORNER = Vector2i(9, 1)
+var DIRT_SOUTH_CORNER = Vector2i(10, 1)
+var DIRT_WEST_CORNER = Vector2i(11, 1)
+var DIRT_EAST_CORNER = Vector2i(12, 1)
+var DIRT_TUNNEL = Vector2i(5, 2)
+var DIRT_PATCH = Vector2i(7, 2)
 
 func _ready():
 	altitude.seed = randi()
@@ -117,6 +129,18 @@ func get_tile_type(pos: Vector2):
 			return DIRT_NORTH_EAST_CORNER
 		elif is_southeast_corner(pos):
 			return DIRT_SOUTH_EAST_CORNER
+		elif is_north_corner(pos):
+			return DIRT_NORTH_CORNER
+		elif is_south_corner(pos):
+			return DIRT_SOUTH_CORNER
+		elif is_west_corner(pos):
+			return DIRT_WEST_CORNER
+		elif is_east_corner(pos):
+			return DIRT_EAST_CORNER
+		elif is_tunnel(pos):
+			return DIRT_TUNNEL
+		elif is_patch(pos):
+			return DIRT_PATCH
 		else:
 			return Vector2i(0, 1)
 	elif is_dark_grass_tile(pos):
@@ -136,6 +160,18 @@ func get_tile_type(pos: Vector2):
 			return DARK_GRASS_NORTH_EAST_CORNER
 		elif is_southeast_corner(pos):
 			return DARK_GRASS_SOUTH_EAST_CORNER
+		elif is_north_corner(pos):
+			return DARK_GRASS_NORTH_CORNER
+		elif is_south_corner(pos):
+			return DARK_GRASS_SOUTH_CORNER
+		elif is_west_corner(pos):
+			return DARK_GRASS_WEST_CORNER
+		elif is_east_corner(pos):
+			return DARK_GRASS_EAST_CORNER
+		elif is_tunnel(pos):
+			return DARK_GRASS_TUNNEL
+		elif is_patch(pos):
+			return DARK_GRASS_PATCH
 		else:
 			return Vector2i(0, 0)
 	else:
@@ -211,6 +247,54 @@ func is_southeast_corner(pos: Vector2):
 	return neighbors[0].y == curr_cell.y \
 		and neighbors[1].y != curr_cell.y \
 		and neighbors[2].y == curr_cell.y \
+		and neighbors[3].y != curr_cell.y
+
+func is_north_corner(pos: Vector2):
+	var neighbors = get_neighbors(pos)
+	var curr_cell = get_cell_atlas_coords(0, pos)
+	return neighbors[0].y != curr_cell.y \
+		and neighbors[1].y == curr_cell.y \
+		and neighbors[2].y != curr_cell.y \
+		and neighbors[3].y != curr_cell.y
+
+func is_south_corner(pos: Vector2):
+	var neighbors = get_neighbors(pos)
+	var curr_cell = get_cell_atlas_coords(0, pos)
+	return neighbors[0].y == curr_cell.y \
+		and neighbors[1].y != curr_cell.y \
+		and neighbors[2].y != curr_cell.y \
+		and neighbors[3].y != curr_cell.y
+
+func is_west_corner(pos: Vector2):
+	var neighbors = get_neighbors(pos)
+	var curr_cell = get_cell_atlas_coords(0, pos)
+	return neighbors[0].y != curr_cell.y \
+		and neighbors[1].y != curr_cell.y \
+		and neighbors[2].y != curr_cell.y \
+		and neighbors[3].y == curr_cell.y
+
+func is_east_corner(pos: Vector2):
+	var neighbors = get_neighbors(pos)
+	var curr_cell = get_cell_atlas_coords(0, pos)
+	return neighbors[0].y != curr_cell.y \
+		and neighbors[1].y != curr_cell.y \
+		and neighbors[2].y == curr_cell.y \
+		and neighbors[3].y != curr_cell.y
+
+func is_tunnel(pos: Vector2):
+	var neighbors = get_neighbors(pos)
+	var curr_cell = get_cell_atlas_coords(0, pos)
+	return neighbors[0].y != curr_cell.y \
+		and neighbors[1].y != curr_cell.y \
+		and neighbors[2].y == curr_cell.y \
+		and neighbors[3].y == curr_cell.y
+
+func is_patch(pos: Vector2):
+	var neighbors = get_neighbors(pos)
+	var curr_cell = get_cell_atlas_coords(0, pos)
+	return neighbors[0].y != curr_cell.y \
+		and neighbors[1].y != curr_cell.y \
+		and neighbors[2].y != curr_cell.y \
 		and neighbors[3].y != curr_cell.y
 
 func unload_distant_chunks(player_pos):
