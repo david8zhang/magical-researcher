@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://ca6iv0stxicwi"]
+[gd_scene load_steps=6 format=3 uid="uid://ca6iv0stxicwi"]
 
 [ext_resource type="Texture2D" uid="uid://tuu7vfk3ir56" path="res://icon.svg" id="1_lsuk0"]
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_oyscp"]
@@ -8,6 +8,13 @@ size = Vector2(64, 64)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cpirc"]
 bg_color = Color(0.905882, 0.298039, 0.235294, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lcubc"]
+bg_color = Color(0.890196, 0.701961, 0.301961, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -26,6 +33,18 @@ shape = SubResource("RectangleShape2D_ctlwm")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="LevelLabel" type="Label" parent="CanvasLayer"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 65.0
+offset_bottom = 48.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 25
+text = "Lv. 1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
 [node name="HPLabel" type="Label" parent="CanvasLayer"]
 anchors_preset = 7
 anchor_left = 0.5
@@ -33,9 +52,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -212.0
-offset_top = -43.0
+offset_top = -83.0
 offset_right = -172.0
-offset_bottom = -17.0
+offset_bottom = -57.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "HP"
@@ -49,13 +68,45 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -164.0
-offset_top = -43.0
+offset_top = -83.0
 offset_right = 164.0
-offset_bottom = -16.0
+offset_bottom = -56.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/fill = SubResource("StyleBoxFlat_cpirc")
 step = 1.0
 value = 100.0
 rounded = true
+show_percentage = false
+
+[node name="EXPLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -212.0
+offset_top = -43.0
+offset_right = -172.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "EXP"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="EXPBar" type="ProgressBar" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -164.0
+offset_top = -43.0
+offset_right = 164.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/fill = SubResource("StyleBoxFlat_lcubc")
+step = 1.0
 show_percentage = false

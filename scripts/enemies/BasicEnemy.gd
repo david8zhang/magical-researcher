@@ -9,3 +9,6 @@ func _ready():
 	active_spell.caster = self
 	add_child(active_spell)
 	
+func on_death():
+	var player = game.player as Player
+	player.gain_exp(exp_reward)

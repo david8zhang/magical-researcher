@@ -2,6 +2,8 @@ class_name Player
 extends CharacterBody2D
 
 @onready var healthbar = $CanvasLayer/HPBar as ProgressBar
+@onready var expbar =$CanvasLayer/EXPBar as ProgressBar
+@onready var level_label = $CanvasLayer/LevelLabel as Label
 @onready var camera = $Camera2D as Camera2D
 var active_spell: DamageSpell
 
@@ -11,12 +13,18 @@ var defense = 5
 var max_hp = 100
 var speed = 300
 
+var exp_points = 0
+var curr_level = 1
+
 signal on_death
 
 func _ready():
 	active_spell = SpellManager.instance.basic_spell.instantiate() as BasicSpell
 	healthbar.max_value = max_hp
 	add_child(active_spell)
+	var required_exp_points = 100 * (2 ** curr_level - 1)
+	expbar.max_value = required_exp_points
+	expbar.value = exp_points
 
 func _physics_process(_delta):
 	var new_velocity = Vector2.ZERO
@@ -47,3 +55,21 @@ func take_damage(damage: int) -> void:
 	healthbar.value -= damage
 	if healthbar.value == 0:
 		on_death.emit()
+
+func gain_exp(exp_value: int) -> void:
+	var levels_gained = 0
+	var total_after_gain = expbar.value + exp_value
+	var required_for_next_level = expbar.max_value
+	print(expbar.max_value)
+	while total_after_gain >= required_for_next_level:
+		total_after_gain -= required_for_next_level
+		levels_gained += 1
+		required_for_next_level = 100 * 2 ** (curr_level + levels_gained)
+	print(total_after_gain)
+	print(curr_level)
+	print(levels_gained)
+	expbar.value = total_after_gain
+	curr_level += levels_gained
+	if levels_gained > 0:
+		level_label.text = "Lv. " + str(curr_level)
+		expbar.max_value = 100 * 2 ** (curr_level - 1)
