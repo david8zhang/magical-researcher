@@ -3,7 +3,7 @@ extends DamageSpell
 
 @export var projectile: PackedScene
 var projectile_speed = 500
-var damage = 5
+var spell_power = 5
 var did_cast = false
 
 func _ready():
@@ -39,7 +39,11 @@ func cooldown_expire():
 func on_projectile_hit(body: Node):
 	if body is BasicEnemy:
 		var enemy = body as Enemy
+		var player = game.player
+		var damage = spell_power * (player.attack / enemy.attack)
 		enemy.take_damage(damage)
 	elif body is Player:
 		var player = body as Player
+		var enemy_caster = caster as Enemy
+		var damage = spell_power * (enemy_caster.attack / player.defense)
 		player.take_damage(damage)

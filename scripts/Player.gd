@@ -1,16 +1,21 @@
 class_name Player
 extends CharacterBody2D
 
-const SPEED = 300.0
-
 @onready var healthbar = $CanvasLayer/HPBar as ProgressBar
 @onready var camera = $Camera2D as Camera2D
 var active_spell: DamageSpell
+
+# Stats
+var attack = 5
+var defense = 5
+var max_hp = 100
+var speed = 300
 
 signal on_death
 
 func _ready():
 	active_spell = SpellManager.instance.basic_spell.instantiate() as BasicSpell
+	healthbar.max_value = max_hp
 	add_child(active_spell)
 
 func _physics_process(_delta):
@@ -23,7 +28,7 @@ func _physics_process(_delta):
 		new_velocity.y += 1
 	if Input.is_action_pressed("move_up"):
 		new_velocity.y -= 1
-	velocity = new_velocity.normalized() * SPEED
+	velocity = new_velocity.normalized() * speed
 	move_and_slide()
 
 func _input(event):
@@ -31,7 +36,6 @@ func _input(event):
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if active_spell != null:
 				active_spell.cast(global_position, convert_to_world_pos(event.position), Game.Side.Player)
-
 
 func convert_to_world_pos(mouse_position: Vector2):
 	var origin = get_viewport_rect().get_center()

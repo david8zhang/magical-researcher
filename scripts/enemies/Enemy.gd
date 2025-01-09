@@ -4,7 +4,6 @@ extends RigidBody2D
 var vision_radius
 var active_spell: DamageSpell
 var at_position_buffer = 2
-var speed = 250
 
 enum RoamingState {
 	WALK,
@@ -13,6 +12,12 @@ enum RoamingState {
 var roam_dest = null
 var roam_wait_time = -1
 var roam_state = RoamingState.IDLE
+
+# Stats
+var attack = 5
+var defense = 5
+var max_hp = 100
+var speed = 250
 
 signal on_death
 

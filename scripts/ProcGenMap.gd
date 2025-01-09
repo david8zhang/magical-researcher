@@ -55,7 +55,6 @@ func _process(_delta):
 func generate_chunk(pos: Vector2):
 	for x in range(chunk_width):
 		for y in range(chunk_height):
-
 			var tile_x = pos.x - (chunk_width / 2) + x
 			var tile_y = pos.y - (chunk_height / 2) + y
 
@@ -65,11 +64,9 @@ func generate_chunk(pos: Vector2):
 
 			# Convert to a number between 0 and 2 (inclusive)
 			var moist_normalized = round((moist + 10) / 20)
-
 			var dark_grass_tile_index = Vector2i(0, 0)
 			var dirt_tile_index = Vector2i(0, 1)
 			var light_grass_tile_index = Vector2i(0, 2)
-
 			var tile_index = light_grass_tile_index
 			if alt < 0:
 				tile_index = dark_grass_tile_index
@@ -78,7 +75,6 @@ func generate_chunk(pos: Vector2):
 					tile_index = dirt_tile_index
 				elif moist_normalized == 1:
 					tile_index = light_grass_tile_index
-
 			set_cell(0, Vector2i(tile_x, tile_y), 0, tile_index)
 
 			# Add chunk to loaded chunks
@@ -109,7 +105,6 @@ func get_neighbors(pos: Vector2):
 		get_cell_atlas_coords(0, neighbor_left),
 		get_cell_atlas_coords(0, neighbor_right)
 	]
-
 
 func get_tile_type(pos: Vector2):
 	if is_dirt_tile(pos):
