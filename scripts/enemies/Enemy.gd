@@ -17,7 +17,7 @@ var roam_state = RoamingState.IDLE
 var attack = 5
 var defense = 5
 var max_hp = 100
-var speed = 250
+var speed = 125
 var exp_reward = 100
 
 @onready var game = get_node("/root/Main") as Game

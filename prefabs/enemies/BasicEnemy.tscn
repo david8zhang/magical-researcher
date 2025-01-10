@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bvhyeul1hncre" path="res://prefabs/enemies/BasicEnemyAI.tscn" id="2_e4t6s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s3gvr"]
-size = Vector2(52, 52)
+size = Vector2(26, 26)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fay81"]
 bg_color = Color(1, 0, 0, 1)
@@ -18,22 +18,22 @@ lock_rotation = true
 script = ExtResource("1_dablm")
 
 [node name="BasicEnemyAI" parent="." node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("2_e4t6s")]
-blackboard = NodePath("@Node@20029")
+blackboard = NodePath("@Node@96989")
 actor = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(1, 0, 0, 1)
-scale = Vector2(0.4, 0.4)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_ck1wg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_s3gvr")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
-offset_left = -39.0
-offset_top = -39.0
-offset_right = 39.0
-offset_bottom = -32.0
+offset_left = -21.0
+offset_top = -21.0
+offset_right = 21.0
+offset_bottom = -17.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_fay81")
 max_value = 20.0
 step = 1.0

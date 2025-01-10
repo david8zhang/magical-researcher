@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://scripts/ProcGenMap.gd" id="4_34inj"]
 [ext_resource type="PackedScene" uid="uid://8ci0q8sn5c17" path="res://prefabs/enemies/BasicEnemy.tscn" id="5_a6b1e"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kslaa"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0xgob"]
 texture = ExtResource("3_8bm7q")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
@@ -24,6 +24,8 @@ texture_region_size = Vector2i(32, 32)
 10:0/0 = 0
 11:0/0 = 0
 12:0/0 = 0
+13:0/0 = 0
+14:0/0 = 0
 0:1/0 = 0
 1:1/0 = 0
 2:1/0 = 0
@@ -37,26 +39,23 @@ texture_region_size = Vector2i(32, 32)
 10:1/0 = 0
 11:1/0 = 0
 12:1/0 = 0
+13:1/0 = 0
+14:1/0 = 0
 0:2/0 = 0
 1:2/0 = 0
 2:2/0 = 0
 3:2/0 = 0
 4:2/0 = 0
-5:2/0 = 0
-6:2/0 = 0
-7:2/0 = 0
-8:2/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_iyu7n"]
 tile_size = Vector2i(32, 32)
-sources/0 = SubResource("TileSetAtlasSource_kslaa")
+sources/0 = SubResource("TileSetAtlasSource_0xgob")
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_56j8m")
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(1, 1)
-scale = Vector2(2, 2)
 tile_set = SubResource("TileSet_iyu7n")
 format = 2
 script = ExtResource("4_34inj")
@@ -68,6 +67,7 @@ position = Vector2(576, 324)
 slide_on_ceiling = false
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(2, 2)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -78,4 +78,4 @@ anchor_right = 0.5
 grow_horizontal = 2
 
 [node name="BasicEnemy" parent="." instance=ExtResource("5_a6b1e")]
-position = Vector2(899, 232)
+position = Vector2(690, 267)

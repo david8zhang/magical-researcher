@@ -5,8 +5,8 @@ var altitude = FastNoiseLite.new()
 var moisture = FastNoiseLite.new()
 
 # chunk width and height in tiles
-var chunk_width = 48
-var chunk_height = 48
+var chunk_width = 32
+var chunk_height = 32
 
 @onready var game = get_node("/root/Main") as Game
 
@@ -24,8 +24,8 @@ var DARK_GRASS_NORTH_CORNER = Vector2i(9, 0)
 var DARK_GRASS_SOUTH_CORNER = Vector2i(10, 0)
 var DARK_GRASS_WEST_CORNER = Vector2i(11, 0)
 var DARK_GRASS_EAST_CORNER = Vector2i(12, 0)
-var DARK_GRASS_TUNNEL = Vector2i(6, 2)
-var DARK_GRASS_PATCH = Vector2i(8, 2)
+var DARK_GRASS_TUNNEL = Vector2i(13, 0)
+var DARK_GRASS_PATCH = Vector2i(14, 0)
 
 var DIRT_NORTH_EDGE = Vector2i(1, 1)
 var DIRT_WEST_EDGE = Vector2i(2, 1)
@@ -39,8 +39,8 @@ var DIRT_NORTH_CORNER = Vector2i(9, 1)
 var DIRT_SOUTH_CORNER = Vector2i(10, 1)
 var DIRT_WEST_CORNER = Vector2i(11, 1)
 var DIRT_EAST_CORNER = Vector2i(12, 1)
-var DIRT_TUNNEL = Vector2i(5, 2)
-var DIRT_PATCH = Vector2i(7, 2)
+var DIRT_TUNNEL = Vector2i(13, 1)
+var DIRT_PATCH = Vector2i(14, 1)
 
 func _ready():
 	altitude.seed = randi()

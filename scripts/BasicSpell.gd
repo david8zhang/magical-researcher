@@ -2,7 +2,7 @@ class_name BasicSpell
 extends DamageSpell
 
 @export var projectile: PackedScene
-var projectile_speed = 500
+var projectile_speed = 250
 var spell_power = 5
 var did_cast = false
 

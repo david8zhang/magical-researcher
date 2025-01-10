@@ -11,7 +11,7 @@ var active_spell: DamageSpell
 var attack = 5
 var defense = 5
 var max_hp = 100
-var speed = 300
+var speed = 150
 
 var exp_points = 0
 var curr_level = 1
@@ -60,14 +60,10 @@ func gain_exp(exp_value: int) -> void:
 	var levels_gained = 0
 	var total_after_gain = expbar.value + exp_value
 	var required_for_next_level = expbar.max_value
-	print(expbar.max_value)
 	while total_after_gain >= required_for_next_level:
 		total_after_gain -= required_for_next_level
 		levels_gained += 1
 		required_for_next_level = 100 * 2 ** (curr_level + levels_gained)
-	print(total_after_gain)
-	print(curr_level)
-	print(levels_gained)
 	expbar.value = total_after_gain
 	curr_level += levels_gained
 	if levels_gained > 0:
