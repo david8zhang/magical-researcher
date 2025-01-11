@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://c23iqxymfhtb3"]
+
+[node name="SpellProgressMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -151.5
+offset_top = -95.0
+offset_right = 151.5
+offset_bottom = 95.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="SpellRow" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 2.08165e-12)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="SpellName" type="Label" parent="ScrollContainer/VBoxContainer/SpellRow"]
+layout_mode = 2
+text = "Basic Spell 2"
+
+[node name="ProgressBar" type="ProgressBar" parent="ScrollContainer/VBoxContainer/SpellRow"]
+custom_minimum_size = Vector2(150, 10)
+layout_mode = 2
+size_flags_vertical = 4
+show_percentage = false

@@ -18,7 +18,7 @@ lock_rotation = true
 script = ExtResource("1_dablm")
 
 [node name="BasicEnemyAI" parent="." node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("2_e4t6s")]
-blackboard = NodePath("@Node@96989")
+blackboard = NodePath("@Node@19691")
 actor = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

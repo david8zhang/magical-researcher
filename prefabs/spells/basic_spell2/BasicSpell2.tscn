@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://rdj5u0otx8c1"]
+
+[ext_resource type="Script" path="res://scripts/BasicSpell2.gd" id="1_walcx"]
+
+[node name="BasicSpell2" type="Node2D"]
+script = ExtResource("1_walcx")

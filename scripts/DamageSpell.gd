@@ -6,6 +6,7 @@ extends Node2D
 var caster
 var spell_range: int
 var cooldown_seconds: float
+var spell_name: String
 
 func cast(_start_position: Vector2, _target_position: Vector2, _side: Game.Side):
 	pass

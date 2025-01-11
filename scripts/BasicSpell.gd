@@ -9,6 +9,7 @@ var did_cast = false
 func _ready():
 	spell_range = 150
 	cooldown_seconds = 1.0
+	spell_name = "Basic Spell"
 
 func cast(start_position: Vector2, target_position: Vector2, side: Game.Side):
 	if !did_cast:
@@ -24,17 +25,29 @@ func cast(start_position: Vector2, target_position: Vector2, side: Game.Side):
 		new_projectile.global_position = Vector2(start_position.x, start_position.y)
 		new_projectile.linear_velocity = (target_position - start_position).normalized() * projectile_speed
 
+		# Expire projectiles
+		var proj_remove_timer = Timer.new()
+		proj_remove_timer.wait_time = 10
+		proj_remove_timer.one_shot = true
+		proj_remove_timer.autostart = true
+		var on_proj_remove_timeout = Callable(self, "remove_projectile").bind(new_projectile)
+		proj_remove_timer.timeout.connect(on_proj_remove_timeout)
+		add_child(proj_remove_timer)
+
 		# Handle spell cooldown
 		var cooldown_timer = Timer.new()
 		cooldown_timer.wait_time = cooldown_seconds
 		cooldown_timer.one_shot = true
 		cooldown_timer.autostart = true
-		var callable = Callable(self, "cooldown_expire")
-		cooldown_timer.timeout.connect(callable)
+		var on_cooldown_timeout = Callable(self, "cooldown_expire")
+		cooldown_timer.timeout.connect(on_cooldown_timeout)
 		add_child(cooldown_timer)
 
 func cooldown_expire():
 	did_cast = false
+
+func remove_projectile(proj: BasicSpellProjectile):
+	proj.queue_free()	
 
 func on_projectile_hit(body: Node):
 	if body is BasicEnemy:

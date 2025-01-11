@@ -11,7 +11,7 @@
 
 [node name="BasicEnemyAI" type="Node" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("1_mnleg")
-blackboard = NodePath("@Node@21385")
+blackboard = NodePath("@Node@20539")
 actor = NodePath("")
 
 [node name="RootSelector" type="Node" parent="."]
