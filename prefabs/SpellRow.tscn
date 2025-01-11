@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://dgti3x0ntwja"]
+
+[ext_resource type="Script" path="res://scripts/SpellRow.gd" id="1_04vi0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5oote"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cc6vq"]
+bg_color = Color(0, 0.647059, 0.913725, 1)
+
+[node name="SpellRow" type="HBoxContainer"]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
+script = ExtResource("1_04vi0")
+
+[node name="SpellName" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Basic Spell 2"
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(150, 10)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_5oote")
+theme_override_styles/fill = SubResource("StyleBoxFlat_cc6vq")
+step = 1.0
+show_percentage = false
+
+[node name="Button" type="Button" parent="."]
+visible = false
+layout_mode = 2
+text = "Use"

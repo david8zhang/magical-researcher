@@ -9,4 +9,5 @@ func _ready():
 
 func on_proj_hit(body: Node):
 	self.queue_free()
-	spell_ref.on_projectile_hit(body)
+	if is_instance_valid(spell_ref):
+		spell_ref.on_projectile_hit(body)

@@ -7,6 +7,7 @@ var caster
 var spell_range: int
 var cooldown_seconds: float
 var spell_name: String
+var unlock_cost = 5
 
 func cast(_start_position: Vector2, _target_position: Vector2, _side: Game.Side):
 	pass

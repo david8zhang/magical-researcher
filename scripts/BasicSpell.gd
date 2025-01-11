@@ -27,10 +27,10 @@ func cast(start_position: Vector2, target_position: Vector2, side: Game.Side):
 
 		# Expire projectiles
 		var proj_remove_timer = Timer.new()
-		proj_remove_timer.wait_time = 10
+		proj_remove_timer.wait_time = 5
 		proj_remove_timer.one_shot = true
 		proj_remove_timer.autostart = true
-		var on_proj_remove_timeout = Callable(self, "remove_projectile").bind(new_projectile)
+		var on_proj_remove_timeout = Callable(self, "remove_projectile").bind(new_projectile, proj_remove_timer)
 		proj_remove_timer.timeout.connect(on_proj_remove_timeout)
 		add_child(proj_remove_timer)
 
@@ -39,14 +39,16 @@ func cast(start_position: Vector2, target_position: Vector2, side: Game.Side):
 		cooldown_timer.wait_time = cooldown_seconds
 		cooldown_timer.one_shot = true
 		cooldown_timer.autostart = true
-		var on_cooldown_timeout = Callable(self, "cooldown_expire")
+		var on_cooldown_timeout = Callable(self, "cooldown_expire").bind(cooldown_timer)
 		cooldown_timer.timeout.connect(on_cooldown_timeout)
 		add_child(cooldown_timer)
 
-func cooldown_expire():
+func cooldown_expire(timer: Timer):
+	timer.queue_free()
 	did_cast = false
 
-func remove_projectile(proj: BasicSpellProjectile):
+func remove_projectile(proj: BasicSpellProjectile, timer: Timer):
+	timer.queue_free()
 	proj.queue_free()	
 
 func on_projectile_hit(body: Node):

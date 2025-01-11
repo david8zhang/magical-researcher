@@ -1,47 +1,80 @@
-[gd_scene format=3 uid="uid://c23iqxymfhtb3"]
+[gd_scene load_steps=4 format=3 uid="uid://c23iqxymfhtb3"]
+
+[ext_resource type="Script" path="res://scripts/SpellProgressMenu.gd" id="1_n8xhb"]
+[ext_resource type="PackedScene" uid="uid://dgti3x0ntwja" path="res://prefabs/SpellRow.tscn" id="1_nhkyp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ew00"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.152941, 0.109804, 0.00784314, 0.588235)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="SpellProgressMenu" type="Control"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_n8xhb")
+spell_row_scene = ExtResource("1_nhkyp")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="Panel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -151.5
-offset_top = -95.0
-offset_right = 151.5
-offset_bottom = 95.0
+offset_left = -207.5
+offset_top = -133.0
+offset_right = 207.5
+offset_bottom = 133.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_7ew00")
+
+[node name="SpellBookTitle" type="RichTextLabel" parent="Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -270.5
+offset_top = 9.0
+offset_right = 270.5
+offset_bottom = 40.0
+grow_horizontal = 2
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "[center][b]Spell Book[b][center]"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 49.0
 grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
-custom_minimum_size = Vector2(2.08165e-12, 2.08165e-12)
+[node name="MarginContainer" type="MarginContainer" parent="Panel/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScrollContainer/MarginContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 2.08165e-12)
+layout_mode = 2
 alignment = 1
-
-[node name="SpellRow" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 2.08165e-12)
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 50
-alignment = 1
-
-[node name="SpellName" type="Label" parent="ScrollContainer/VBoxContainer/SpellRow"]
-layout_mode = 2
-text = "Basic Spell 2"
-
-[node name="ProgressBar" type="ProgressBar" parent="ScrollContainer/VBoxContainer/SpellRow"]
-custom_minimum_size = Vector2(150, 10)
-layout_mode = 2
-size_flags_vertical = 4
-show_percentage = false

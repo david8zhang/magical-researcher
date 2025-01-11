@@ -3,12 +3,13 @@ extends CharacterBody2D
 
 @onready var healthbar = $CanvasLayer/HPBar as ProgressBar
 @onready var expbar =$CanvasLayer/EXPBar as ProgressBar
+@onready var spell_progress_menu = $CanvasLayer/SpellProgressMenu as SpellProgressMenu
 @onready var level_label = $CanvasLayer/LevelLabel as Label
 @onready var camera = $Camera2D as Camera2D
 var active_spell: DamageSpell
 
 # Stats
-var attack = 5
+var attack = 200
 var defense = 5
 var max_hp = 100
 var speed = 150
@@ -26,6 +27,9 @@ func _ready():
 	expbar.max_value = required_exp_points
 	expbar.value = exp_points
 
+	spell_progress_menu.add_progress_to_spell(active_spell)
+	spell_progress_menu.force_unlock_spell(active_spell.spell_name)
+
 func _physics_process(_delta):
 	var new_velocity = Vector2.ZERO
 	if Input.is_action_pressed("move_right"):
@@ -39,7 +43,16 @@ func _physics_process(_delta):
 	velocity = new_velocity.normalized() * speed
 	move_and_slide()
 
+	if Input.is_action_just_pressed("toggle_spell_menu"):
+		if spell_progress_menu.visible:
+			spell_progress_menu.hide()
+		else:
+			spell_progress_menu.show()
+
 func _input(event):
+	# Ignore click events if spell book is open
+	if spell_progress_menu.visible:
+		return
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if active_spell != null:
@@ -68,4 +81,24 @@ func gain_exp(exp_value: int) -> void:
 	curr_level += levels_gained
 	if levels_gained > 0:
 		level_label.text = "Lv. " + str(curr_level)
+		level_up_text_effect()
 		expbar.max_value = 100 * 2 ** (curr_level - 1)
+
+func level_up_text_effect():
+	var label = Label.new()
+	label.text = "Level up!"
+	label.global_position = Vector2(global_position.x, global_position.y)
+	label.top_level = true
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	add_child(label)
+	label.global_position.x -= label.size.x / 2
+	label.global_position.y -= label.size.y / 2
+	var tween = create_tween()
+	var final_y_pos = label.global_position.y - 20
+	tween.tween_property(label, "global_position:y", final_y_pos, 1.0)
+	tween.parallel().tween_property(label, "modulate:a", 0, 1.5)
+	var on_complete = Callable(self, "_on_level_up_text_effect_complete").bind(label)
+	tween.finished.connect(on_complete)
+
+func _on_level_up_text_effect_complete(label: Label):
+	label.queue_free()
