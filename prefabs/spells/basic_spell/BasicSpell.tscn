@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dyto70wmcq6er"]
 
 [ext_resource type="Script" path="res://scripts/BasicSpell.gd" id="1_qd168"]
-[ext_resource type="PackedScene" uid="uid://cu45ewep1oi1m" path="res://prefabs/spells/BasicSpellProjectile.tscn" id="2_x7pyd"]
+[ext_resource type="PackedScene" uid="uid://cu45ewep1oi1m" path="res://prefabs/spells/basic_spell/BasicSpellProjectile.tscn" id="2_x7pyd"]
 
 [node name="BasicSpell" type="Node2D"]
 script = ExtResource("1_qd168")

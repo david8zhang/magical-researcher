@@ -1,0 +1,118 @@
+[gd_scene load_steps=7 format=3 uid="uid://c6n4kgcfvt4sq"]
+
+[ext_resource type="Script" path="res://scripts/SpellBindMenu.gd" id="1_5qbac"]
+[ext_resource type="Texture2D" uid="uid://dvi15akx7qqjs" path="res://assets/lmb.png" id="1_k7co3"]
+[ext_resource type="Texture2D" uid="uid://cp55gm0whasr1" path="res://assets/rmb.png" id="2_4tqmp"]
+[ext_resource type="PackedScene" uid="uid://drwlpu61e2r6k" path="res://prefabs/SpellBindOption.tscn" id="4_lfuiu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1s2x5"]
+bg_color = Color(0.2, 0.2, 0.2, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dqi2f"]
+bg_color = Color(0, 0.321569, 0.635294, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="SpellBindMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5qbac")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -110.5
+offset_right = 104.0
+offset_bottom = 110.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1s2x5")
+
+[node name="Title" type="RichTextLabel" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 8.0
+offset_bottom = 34.0
+grow_horizontal = 2
+bbcode_enabled = true
+text = "[center][b]Bind Spells[b][center]"
+
+[node name="LMBIcon" type="TextureRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 38.0
+offset_top = -175.0
+offset_right = 64.0
+offset_bottom = -148.0
+grow_vertical = 0
+texture = ExtResource("1_k7co3")
+expand_mode = 1
+
+[node name="RMBIcon" type="TextureRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -66.0
+offset_top = -175.0
+offset_right = -40.0
+offset_bottom = -148.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("2_4tqmp")
+expand_mode = 1
+
+[node name="Confirm" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -35.0
+offset_top = -33.0
+offset_right = 36.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_dqi2f")
+text = "Confirm"
+
+[node name="SpellBindOption" parent="Panel" instance=ExtResource("4_lfuiu")]
+layout_mode = 1
+offset_left = 14.0
+offset_top = -143.0
+offset_right = 87.0
+offset_bottom = -37.0
+
+[node name="SpellBindOption2" parent="Panel" instance=ExtResource("4_lfuiu")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -89.0
+offset_top = -143.0
+offset_right = -16.0
+offset_bottom = -37.0
+grow_horizontal = 0

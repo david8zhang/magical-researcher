@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3 uid="uid://drwlpu61e2r6k"]
+
+[ext_resource type="Script" path="res://scripts/SpellBindOption.gd" id="1_ajvq7"]
+[ext_resource type="Texture2D" uid="uid://crkw4i1pfa37y" path="res://assets/panel.png" id="2_yw70b"]
+
+[node name="SpellBindOption" type="Button"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -106.0
+offset_right = 73.0
+grow_vertical = 0
+flat = true
+script = ExtResource("1_ajvq7")
+
+[node name="SpellLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -28.0
+offset_right = 81.0
+offset_bottom = -2.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 12
+text = "None"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+clip_text = true
+
+[node name="SpellIcon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -102.0
+offset_right = 71.0
+offset_bottom = -32.0
+grow_vertical = 0
+texture = ExtResource("2_yw70b")
+expand_mode = 1

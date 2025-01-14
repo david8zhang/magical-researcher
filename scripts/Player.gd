@@ -4,6 +4,7 @@ extends CharacterBody2D
 @onready var healthbar = $CanvasLayer/HPBar as ProgressBar
 @onready var expbar =$CanvasLayer/EXPBar as ProgressBar
 @onready var spell_progress_menu = $CanvasLayer/SpellProgressMenu as SpellProgressMenu
+@onready var spell_bind_menu = $CanvasLayer/SpellBindMenu as SpellBindMenu
 @onready var level_label = $CanvasLayer/LevelLabel as Label
 @onready var camera = $Camera2D as Camera2D
 var active_spell: DamageSpell

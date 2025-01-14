@@ -11,6 +11,7 @@ func _ready():
 func add_progress_to_spell(spell: DamageSpell):
 	if !spell_rows_map.has(spell.spell_name):
 		var new_spell_row = spell_row_scene.instantiate() as SpellRow
+		new_spell_row.spell_ref = spell
 		spell_menu.add_child(new_spell_row)
 		new_spell_row.on_add_to_book(spell)
 		spell_rows_map[spell.spell_name] = new_spell_row

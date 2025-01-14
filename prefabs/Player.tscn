@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://ca6iv0stxicwi"]
+[gd_scene load_steps=8 format=3 uid="uid://ca6iv0stxicwi"]
 
 [ext_resource type="Texture2D" uid="uid://tuu7vfk3ir56" path="res://icon.svg" id="1_lsuk0"]
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_oyscp"]
 [ext_resource type="PackedScene" uid="uid://c23iqxymfhtb3" path="res://prefabs/SpellProgressMenu.tscn" id="3_oq4xi"]
+[ext_resource type="PackedScene" uid="uid://c6n4kgcfvt4sq" path="res://prefabs/SpellBindMenu.tscn" id="4_dv0o4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ctlwm"]
 size = Vector2(32, 32)
@@ -113,3 +114,6 @@ step = 1.0
 show_percentage = false
 
 [node name="SpellProgressMenu" parent="CanvasLayer" instance=ExtResource("3_oq4xi")]
+
+[node name="SpellBindMenu" parent="CanvasLayer" instance=ExtResource("4_dv0o4")]
+visible = false
