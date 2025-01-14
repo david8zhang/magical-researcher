@@ -11,12 +11,14 @@ enum MouseButtons {
 
 var spell_bind_menu: SpellBindMenu
 var button_to_bind: MouseButtons
+var spell_ref
 
-func _ready():
-	pressed.connect(bind_spell)
+func bind_spell(spell_to_bind: DamageSpell):
+	spell_ref = spell_bind_menu.spell_to_bind
+	spell_label.text = spell_to_bind.spell_name
+	spell_icon.texture = load(spell_to_bind.spell_icon_path)
 
-func bind_spell():
-	var spell_to_bind = spell_bind_menu.spell_to_bind
-	if spell_bind_menu.spell_to_bind != null:
-		spell_label.text = spell_to_bind.spell_name
-		spell_icon.texture = load(spell_to_bind.spell_icon_path)
+func unbind_spell():
+	spell_label.text = "None"
+	spell_icon.texture = load("res://assets/panel.png")
+	spell_ref = null

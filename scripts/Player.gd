@@ -21,15 +21,14 @@ var curr_level = 1
 signal on_death
 
 func _ready():
-	active_spell = SpellManager.instance.basic_spell.instantiate() as BasicSpell
+	# active_spell = SpellManager.instance.basic_spell.instantiate() as BasicSpell
 	healthbar.max_value = max_hp
-	add_child(active_spell)
 	var required_exp_points = 100 * (2 ** curr_level - 1)
 	expbar.max_value = required_exp_points
 	expbar.value = exp_points
 
-	spell_progress_menu.add_progress_to_spell(active_spell)
-	spell_progress_menu.force_unlock_spell(active_spell.spell_name)
+	# spell_progress_menu.add_progress_to_spell(active_spell)
+	# spell_progress_menu.force_unlock_spell(active_spell.spell_name)
 
 func _physics_process(_delta):
 	var new_velocity = Vector2.ZERO

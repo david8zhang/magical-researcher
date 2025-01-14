@@ -21,3 +21,7 @@ alignment = 1
 [node name="DamageButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Deal Damage"
+
+[node name="UnlockBasicSpellButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Unlock Basic Spell"

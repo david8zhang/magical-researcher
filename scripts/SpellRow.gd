@@ -17,6 +17,7 @@ func open_spell_bind_menu():
 	player.spell_bind_menu.show()
 
 func on_add_to_book(spell: DamageSpell):
+	spell_ref = spell
 	spell_name_label.text = spell.spell_name
 	unlock_progress.value = 0
 	unlock_progress.max_value = spell.unlock_cost

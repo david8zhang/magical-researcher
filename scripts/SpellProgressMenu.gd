@@ -11,7 +11,6 @@ func _ready():
 func add_progress_to_spell(spell: DamageSpell):
 	if !spell_rows_map.has(spell.spell_name):
 		var new_spell_row = spell_row_scene.instantiate() as SpellRow
-		new_spell_row.spell_ref = spell
 		spell_menu.add_child(new_spell_row)
 		new_spell_row.on_add_to_book(spell)
 		spell_rows_map[spell.spell_name] = new_spell_row
@@ -24,3 +23,11 @@ func add_progress_to_spell(spell: DamageSpell):
 func force_unlock_spell(spell_name: String):
 	if spell_rows_map.has(spell_name):
 		spell_rows_map[spell_name].unlock()
+	else:
+		var new_spell_row = spell_row_scene.instantiate() as SpellRow
+		var new_spell = SpellManager.instance.create_spell(spell_name)
+		add_child(new_spell)
+		spell_menu.add_child(new_spell_row)
+		new_spell_row.on_add_to_book(new_spell)
+		spell_rows_map[spell_name] = new_spell_row
+		new_spell_row.unlock()
