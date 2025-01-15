@@ -78,4 +78,16 @@ anchor_right = 0.5
 grow_horizontal = 2
 
 [node name="BasicEnemy" parent="." instance=ExtResource("7_ssybr")]
-position = Vector2(695, 326)
+position = Vector2(742, 389)
+
+[node name="BasicEnemy2" parent="." instance=ExtResource("7_ssybr")]
+position = Vector2(446, 423)
+
+[node name="BasicEnemy3" parent="." instance=ExtResource("7_ssybr")]
+position = Vector2(769, 207)
+
+[node name="BasicEnemy4" parent="." instance=ExtResource("7_ssybr")]
+position = Vector2(383, 276)
+
+[node name="BasicEnemy5" parent="." instance=ExtResource("7_ssybr")]
+position = Vector2(562, 206)

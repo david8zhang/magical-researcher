@@ -20,7 +20,7 @@ script = ExtResource("1_dablm")
 spell_point_scene = ExtResource("2_hdgsx")
 
 [node name="BasicEnemyAI" parent="." node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("2_e4t6s")]
-blackboard = NodePath("@Node@699257")
+blackboard = NodePath("@Node@711505")
 actor = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

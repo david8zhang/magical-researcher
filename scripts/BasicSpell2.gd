@@ -16,6 +16,7 @@ func _ready():
 	spell_name = "Basic Spell 2"
 	spell_range = 150
 	cooldown_seconds = 1.0
+	spell_icon_path = "res://icon.svg"
 
 func cast(start_position: Vector2, _target_position: Vector2, side: Game.Side):
 	if !did_cast:
@@ -25,7 +26,7 @@ func cast(start_position: Vector2, _target_position: Vector2, side: Game.Side):
 			var new_projectile = projectile.instantiate() as BasicSpellProjectile
 			new_projectile.spell_ref = self
 			projectiles.append(new_projectile)
-			add_child(new_projectile)
+			game.add_child(new_projectile)
 			new_projectile.detector.set_collision_layer_value(3, true)
 			if side == Game.Side.Player:
 				new_projectile.detector.set_collision_mask_value(2, true)
@@ -33,6 +34,8 @@ func cast(start_position: Vector2, _target_position: Vector2, side: Game.Side):
 				new_projectile.detector.set_collision_mask_value(1, true)
 			new_projectile.global_position = Vector2(start_position.x, start_position.y)
 			new_projectile.linear_velocity = dir * projectile_speed
+
+		print(projectiles)
 
 		# Expire projectiles
 		var proj_remove_timer = Timer.new()

@@ -10,15 +10,16 @@ func _ready():
 
 func add_progress_to_spell(spell: DamageSpell):
 	if !spell_rows_map.has(spell.spell_name):
+		spell.reparent(self) # Reparent spell to current progress class (since spell reference gets freed once spell point is picked up)
 		var new_spell_row = spell_row_scene.instantiate() as SpellRow
 		spell_menu.add_child(new_spell_row)
-		new_spell_row.unlock_progress.value += 1
 		new_spell_row.on_add_to_book(spell)
+		new_spell_row.unlock_progress.value += 1
 		spell_rows_map[spell.spell_name] = new_spell_row
 	else:
 		var spell_row = spell_rows_map[spell.spell_name]
 		spell_row.unlock_progress.value += 1
-		if spell_row.unlock_progress >= spell_row.max_value:
+		if spell_row.unlock_progress.value >= spell_row.unlock_progress.max_value:
 			spell_row.unlock()
 
 func force_unlock_spell(spell_name: String):
