@@ -1,7 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://rdj5u0otx8c1"]
+[gd_scene load_steps=3 format=3 uid="uid://rdj5u0otx8c1"]
 
 [ext_resource type="Script" path="res://scripts/BasicSpell2.gd" id="1_walcx"]
+[ext_resource type="PackedScene" uid="uid://cx31orkjk46j4" path="res://prefabs/spells/basic_spell2/BasicSpellProjectile2.tscn" id="2_jbpvj"]
 
 [node name="BasicSpell2" type="Node2D"]
 script = ExtResource("1_walcx")
-spell_icon = null
+projectile = ExtResource("2_jbpvj")

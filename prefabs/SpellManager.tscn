@@ -1,8 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://domjmq360jx24"]
+[gd_scene load_steps=4 format=3 uid="uid://domjmq360jx24"]
 
 [ext_resource type="Script" path="res://scripts/SpellManager.gd" id="1_4t1ib"]
 [ext_resource type="PackedScene" uid="uid://dyto70wmcq6er" path="res://prefabs/spells/basic_spell/BasicSpell.tscn" id="2_c86b8"]
+[ext_resource type="PackedScene" uid="uid://rdj5u0otx8c1" path="res://prefabs/spells/basic_spell2/BasicSpell2.tscn" id="3_o5cap"]
 
 [node name="SpellManager" type="Node2D"]
 script = ExtResource("1_4t1ib")
 basic_spell = ExtResource("2_c86b8")
+basic_spell_2 = ExtResource("3_o5cap")

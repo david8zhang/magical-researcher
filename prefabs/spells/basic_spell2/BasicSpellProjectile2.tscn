@@ -1,11 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://cx31orkjk46j4"]
+[gd_scene load_steps=4 format=3 uid="uid://cx31orkjk46j4"]
 
 [ext_resource type="Texture2D" uid="uid://tuu7vfk3ir56" path="res://icon.svg" id="1_dld8l"]
+[ext_resource type="Script" path="res://scripts/BasicSpellProjectile.gd" id="1_vnw73"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5q41d"]
 size = Vector2(12, 12)
 
 [node name="BasicSpellProjectile2" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_vnw73")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_5q41d")
@@ -15,7 +19,7 @@ collision_layer = 0
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Detector"]
-self_modulate = Color(0, 0, 1, 1)
+self_modulate = Color(1, 0, 0, 1)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_dld8l")
 
