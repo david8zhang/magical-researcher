@@ -10,7 +10,7 @@ extends CharacterBody2D
 var active_spell: DamageSpell
 
 # Stats
-var attack = 200
+var attack = 5
 var defense = 5
 var max_hp = 100
 var speed = 150

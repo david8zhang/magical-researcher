@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqpeq5wt6e240"]
+
+[ext_resource type="Script" path="res://scripts/StatIncreaseRow.gd" id="1_1u7og"]
+
+[node name="StatIncreaseRow" type="HBoxContainer"]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1u7og")
+
+[node name="StatName" type="Label" parent="."]
+layout_mode = 2
+text = "Attack"
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StatValue" type="Label" parent="."]
+layout_mode = 2
+text = "5"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+text = "+"
