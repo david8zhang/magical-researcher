@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://vjlox1ap5cbw"]
+[gd_scene load_steps=3 format=3 uid="uid://vjlox1ap5cbw"]
 
+[ext_resource type="Script" path="res://scripts/LevelUpMenu.gd" id="1_gvi80"]
 [ext_resource type="PackedScene" uid="uid://cqpeq5wt6e240" path="res://prefabs/StatIncreaseRow.tscn" id="1_jh7jt"]
 
-[node name="Control" type="Control"]
+[node name="LevelUpMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -11,6 +12,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_gvi80")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -38,7 +40,7 @@ text = "Level Up"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="Panel"]
+[node name="ConfirmButton" type="Button" parent="Panel"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -64,12 +66,16 @@ grow_vertical = 2
 
 [node name="Attack" parent="Panel/VBoxContainer" instance=ExtResource("1_jh7jt")]
 layout_mode = 2
+stat_name_value = "Attack"
 
 [node name="Defense" parent="Panel/VBoxContainer" instance=ExtResource("1_jh7jt")]
 layout_mode = 2
+stat_name_value = "Defense"
 
 [node name="MaxHP" parent="Panel/VBoxContainer" instance=ExtResource("1_jh7jt")]
 layout_mode = 2
+stat_name_value = "Max HP"
 
 [node name="Speed" parent="Panel/VBoxContainer" instance=ExtResource("1_jh7jt")]
 layout_mode = 2
+stat_name_value = "Speed"

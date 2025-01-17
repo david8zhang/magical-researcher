@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var expbar =$CanvasLayer/EXPBar as ProgressBar
 @onready var spell_progress_menu = $CanvasLayer/SpellProgressMenu as SpellProgressMenu
 @onready var spell_bind_menu = $CanvasLayer/SpellBindMenu as SpellBindMenu
+@onready var level_up_menu = $CanvasLayer/LevelUpMenu as LevelUpMenu
 @onready var level_label = $CanvasLayer/LevelLabel as Label
 @onready var camera = $Camera2D as Camera2D
 var active_spell: DamageSpell
@@ -21,14 +22,15 @@ var curr_level = 1
 signal on_death
 
 func _ready():
-	# active_spell = SpellManager.instance.basic_spell.instantiate() as BasicSpell
+	active_spell = SpellManager.instance.basic_spell.instantiate() as BasicSpell
+	add_child(active_spell)
 	healthbar.max_value = max_hp
 	var required_exp_points = 100 * (2 ** curr_level - 1)
 	expbar.max_value = required_exp_points
 	expbar.value = exp_points
 
-	# spell_progress_menu.add_progress_to_spell(active_spell)
-	# spell_progress_menu.force_unlock_spell(active_spell.spell_name)
+	spell_progress_menu.add_progress_to_spell(active_spell)
+	spell_progress_menu.force_unlock_spell(active_spell.spell_name)
 
 func _physics_process(_delta):
 	var new_velocity = Vector2.ZERO
@@ -51,7 +53,7 @@ func _physics_process(_delta):
 
 func _input(event):
 	# Ignore click events if spell book is open
-	if spell_progress_menu.visible:
+	if spell_progress_menu.visible or level_up_menu.visible:
 		return
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_LEFT:
@@ -80,9 +82,13 @@ func gain_exp(exp_value: int) -> void:
 	expbar.value = total_after_gain
 	curr_level += levels_gained
 	if levels_gained > 0:
-		level_label.text = "Lv. " + str(curr_level)
-		level_up_text_effect()
-		expbar.max_value = 100 * 2 ** (curr_level - 1)
+		on_level_up()
+
+func on_level_up():
+	level_label.text = "Lv. " + str(curr_level)
+	level_up_text_effect()
+	expbar.max_value = 100 * 2 ** (curr_level - 1)
+	level_up_menu.setup_on_level_up(self)
 
 func level_up_text_effect():
 	var label = Label.new()

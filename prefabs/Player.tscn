@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://ca6iv0stxicwi"]
+[gd_scene load_steps=9 format=3 uid="uid://ca6iv0stxicwi"]
 
 [ext_resource type="Texture2D" uid="uid://tuu7vfk3ir56" path="res://icon.svg" id="1_lsuk0"]
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_oyscp"]
 [ext_resource type="PackedScene" uid="uid://c23iqxymfhtb3" path="res://prefabs/SpellProgressMenu.tscn" id="3_oq4xi"]
+[ext_resource type="PackedScene" uid="uid://vjlox1ap5cbw" path="res://prefabs/LevelUpMenu.tscn" id="3_y1nfg"]
 [ext_resource type="PackedScene" uid="uid://c6n4kgcfvt4sq" path="res://prefabs/SpellBindMenu.tscn" id="4_dv0o4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ctlwm"]
@@ -112,6 +113,9 @@ grow_vertical = 0
 theme_override_styles/fill = SubResource("StyleBoxFlat_lcubc")
 step = 1.0
 show_percentage = false
+
+[node name="LevelUpMenu" parent="CanvasLayer" instance=ExtResource("3_y1nfg")]
+visible = false
 
 [node name="SpellProgressMenu" parent="CanvasLayer" instance=ExtResource("3_oq4xi")]
 

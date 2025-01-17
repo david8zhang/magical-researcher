@@ -23,5 +23,6 @@ layout_mode = 2
 text = "Deal Damage"
 
 [node name="UnlockBasicSpellButton" type="Button" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Unlock Basic Spell"
