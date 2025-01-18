@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c7lngg8cjax0u"]
+[gd_scene load_steps=11 format=3 uid="uid://c7lngg8cjax0u"]
 
 [ext_resource type="Script" path="res://scripts/Game.gd" id="1_56j8m"]
 [ext_resource type="PackedScene" uid="uid://ca6iv0stxicwi" path="res://prefabs/Player.tscn" id="2_nutke"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://wsaic2bsqmqj" path="res://prefabs/DebugMenu.tscn" id="3_v02s0"]
 [ext_resource type="Script" path="res://scripts/ProcGenMap.gd" id="4_34inj"]
 [ext_resource type="PackedScene" uid="uid://8ci0q8sn5c17" path="res://prefabs/enemies/BasicEnemy.tscn" id="7_ssybr"]
+[ext_resource type="Texture2D" uid="uid://kgqjuu2ckg7x" path="res://assets/tree.png" id="8_q5sog"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0xgob"]
 texture = ExtResource("3_8bm7q")
@@ -79,3 +80,7 @@ grow_horizontal = 2
 
 [node name="BasicEnemy" parent="." instance=ExtResource("7_ssybr")]
 position = Vector2(742, 389)
+
+[node name="Tree" type="Sprite2D" parent="."]
+position = Vector2(411, 403)
+texture = ExtResource("8_q5sog")
