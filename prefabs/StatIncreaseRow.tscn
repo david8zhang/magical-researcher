@@ -25,6 +25,10 @@ size_flags_horizontal = 3
 layout_mode = 2
 text = "5"
 
+[node name="Control2" type="Control" parent="."]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
 [node name="Button" type="Button" parent="."]
 layout_mode = 2
 text = "+"

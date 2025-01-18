@@ -3,6 +3,7 @@ extends TileMap
 
 var altitude = FastNoiseLite.new()
 var moisture = FastNoiseLite.new()
+var temperature = FastNoiseLite.new()
 
 # chunk width and height in tiles
 var chunk_width = 32
@@ -12,6 +13,8 @@ var chunk_height = 32
 
 var loaded_chunks = []
 
+# Dark grass tile indices
+var DARK_GRASS_TILE = Vector2i(0, 0)
 var DARK_GRASS_NORTH_EDGE = Vector2i(1, 0)
 var DARK_GRASS_WEST_EDGE = Vector2i(2, 0)
 var DARK_GRASS_EAST_EDGE = Vector2i(3, 0)
@@ -27,6 +30,8 @@ var DARK_GRASS_EAST_CORNER = Vector2i(12, 0)
 var DARK_GRASS_TUNNEL = Vector2i(13, 0)
 var DARK_GRASS_PATCH = Vector2i(14, 0)
 
+# Dirt tile indices
+var DIRT_TILE = Vector2i(0, 1)
 var DIRT_NORTH_EDGE = Vector2i(1, 1)
 var DIRT_WEST_EDGE = Vector2i(2, 1)
 var DIRT_EAST_EDGE = Vector2i(3, 1)
@@ -42,9 +47,19 @@ var DIRT_EAST_CORNER = Vector2i(12, 1)
 var DIRT_TUNNEL = Vector2i(13, 1)
 var DIRT_PATCH = Vector2i(14, 1)
 
+# Other tiles
+var GRASS_TILE = Vector2i(0, 2)
+var GRASS_FLOWER_TILE = Vector2i(1, 2)
+var GRASS_WEED_TILE = Vector2i(2, 2)
+var DIRT_DARK_ROCK_TILE = Vector2i(3, 2)
+var DIRT_LIGHT_ROCK_TILE = Vector2i(4, 2)
+
 func _ready():
 	altitude.seed = randi()
+	moisture.seed = randi()
+	temperature.seed = randi()
 	altitude.frequency = 0.005
+	temperature.frequency = 1
 
 func _process(_delta):
 	var player = game.player
@@ -84,14 +99,38 @@ func generate_chunk(pos: Vector2):
 	# Fill in corner / edge tiles
 	fill_in_edges(pos)
 
+	# Fill in foliage
+	fill_in_foliage(pos)
+
 func fill_in_edges(pos: Vector2):
 	for x in range(chunk_width):
 		for y in range(chunk_height):
 			var tile_x = pos.x - (chunk_width / 2) + x
 			var tile_y = pos.y - (chunk_width / 2) + y
-			# var cell_atlas_coords = get_cell_atlas_coords(0, pos)
 			var tile_type = get_tile_type(Vector2(tile_x, tile_y))
 			set_cell(0, Vector2i(tile_x, tile_y), 0, tile_type)
+
+
+func fill_in_foliage(pos: Vector2):
+	for x in range(chunk_width):
+		for y in range(chunk_height):
+			var tile_x = pos.x - (chunk_width / 2) + x
+			var tile_y = pos.y - (chunk_width / 2) + y
+			var tile_type = get_cell_atlas_coords(0, Vector2i(tile_x, tile_y))
+			var temp = temperature.get_noise_2d(tile_x, tile_y) * 10
+			var temp_normalized = round(temp + 10)
+
+			# Set foliage (weeds, flowers)
+			if tile_type == GRASS_TILE:
+				if temp_normalized <= 5:
+					set_cell(0, Vector2i(tile_x, tile_y), 0, GRASS_FLOWER_TILE)
+				elif temp_normalized > 5 and temp_normalized <= 8:
+					set_cell(0, Vector2i(tile_x, tile_y), 0, GRASS_WEED_TILE)
+			elif tile_type == DIRT_TILE:
+				if temp_normalized <= 5:
+					set_cell(0, Vector2i(tile_x, tile_y), 0, DIRT_DARK_ROCK_TILE)
+				elif temp_normalized > 5 and temp_normalized <= 8:
+					set_cell(0, Vector2i(tile_x, tile_y), 0, DIRT_LIGHT_ROCK_TILE)
 
 	
 func get_neighbors(pos: Vector2):
