@@ -24,6 +24,7 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [node name="Player" type="CharacterBody2D"]
+y_sort_enabled = true
 collision_mask = 4
 script = ExtResource("1_oyscp")
 

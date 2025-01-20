@@ -10,8 +10,10 @@ var chunk_width = 32
 var chunk_height = 32
 
 @onready var game = get_node("/root/Main") as Game
+@export var tree_foliage_scene: PackedScene
 
 var loaded_chunks = []
+var tree_foliage_map = {}
 
 # Dark grass tile indices
 var DARK_GRASS_TILE = Vector2i(0, 0)
@@ -117,8 +119,7 @@ func fill_in_foliage(pos: Vector2):
 			var tile_x = pos.x - (chunk_width / 2) + x
 			var tile_y = pos.y - (chunk_width / 2) + y
 			var tile_type = get_cell_atlas_coords(0, Vector2i(tile_x, tile_y))
-			var temp = temperature.get_noise_2d(tile_x, tile_y) * 10
-			var temp_normalized = round(temp + 10)
+			var temp_normalized = round(((temperature.get_noise_2d(tile_x, tile_y) + 1.0) * 0.5) * 20)
 
 			# Set foliage (weeds, flowers)
 			if tile_type == GRASS_TILE:
@@ -131,6 +132,24 @@ func fill_in_foliage(pos: Vector2):
 					set_cell(0, Vector2i(tile_x, tile_y), 0, DIRT_DARK_ROCK_TILE)
 				elif temp_normalized > 5 and temp_normalized <= 8:
 					set_cell(0, Vector2i(tile_x, tile_y), 0, DIRT_LIGHT_ROCK_TILE)
+			elif tile_type == DARK_GRASS_TILE:
+				var key = str(tile_x) + "," + str(tile_y)
+				var world_coordinates = map_to_local(Vector2i(tile_x, tile_y))
+				if !tree_foliage_map.has(key):
+					if temp_normalized <= 4:
+						var tree_obj = tree_foliage_scene.instantiate() as TreeFoliage
+						add_sibling(tree_obj)
+						tree_obj.global_position = world_coordinates
+						tree_obj.init(TreeFoliage.TreeType.SMALL)
+						tree_foliage_map[key] = tree_obj
+					elif temp_normalized > 4 and temp_normalized <= 6:
+						var tree_obj = tree_foliage_scene.instantiate() as TreeFoliage
+						add_sibling(tree_obj)
+						tree_obj.global_position = world_coordinates
+						tree_obj.init(TreeFoliage.TreeType.LARGE)
+						tree_foliage_map[key] = tree_obj
+				
+
 
 	
 func get_neighbors(pos: Vector2):
@@ -342,8 +361,17 @@ func unload_distant_chunks(player_pos):
 func clear_chunk(pos):
 		for x in range(chunk_width):
 			for y in range(chunk_height):
+				var tile_x = pos.x - (chunk_width / 2) + x
+				var tile_y = pos.y - (chunk_width / 2) + y
+				var key = str(tile_x) + "," + str(tile_y)
+
+				# Clear out foliage
+				if tree_foliage_map.has(key):
+					tree_foliage_map[key].queue_free()
+					tree_foliage_map.erase(key)
+
 				# Clear tile by setting to -1, -1
-				set_cell(0, Vector2i(pos.x - (chunk_width / 2) + x, pos.y - (chunk_height / 2) + y), -1, Vector2(-1, -1))
+				set_cell(0, Vector2i(tile_x, tile_y), -1, Vector2(-1, -1))
 
 func dist(p1, p2):
 	var r = p1 - p2
