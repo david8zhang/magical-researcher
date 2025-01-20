@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://0j5pldlh2qhw" path="res://assets/forest-tileset.png" id="3_8bm7q"]
 [ext_resource type="PackedScene" uid="uid://wsaic2bsqmqj" path="res://prefabs/DebugMenu.tscn" id="3_v02s0"]
 [ext_resource type="Script" path="res://scripts/ProcGenMap.gd" id="4_34inj"]
-[ext_resource type="PackedScene" uid="uid://b2a0gdlhlpv5p" path="res://prefabs/TreeFoliage.tscn" id="4_gafg5"]
+[ext_resource type="PackedScene" uid="uid://b2a0gdlhlpv5p" path="res://prefabs/Foliage.tscn" id="4_827br"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0xgob"]
 texture = ExtResource("3_8bm7q")
@@ -62,7 +62,7 @@ position = Vector2(1, 1)
 tile_set = SubResource("TileSet_iyu7n")
 format = 2
 script = ExtResource("4_34inj")
-tree_foliage_scene = ExtResource("4_gafg5")
+foliage_scene = ExtResource("4_827br")
 
 [node name="SpellManager" parent="." instance=ExtResource("2_wtpks")]
 

@@ -10,10 +10,10 @@ var chunk_width = 32
 var chunk_height = 32
 
 @onready var game = get_node("/root/Main") as Game
-@export var tree_foliage_scene: PackedScene
+@export var foliage_scene: PackedScene
 
 var loaded_chunks = []
-var tree_foliage_map = {}
+var foliage_map = {}
 
 # Dark grass tile indices
 var DARK_GRASS_TILE = Vector2i(0, 0)
@@ -61,7 +61,7 @@ func _ready():
 	moisture.seed = randi()
 	temperature.seed = randi()
 	altitude.frequency = 0.005
-	temperature.frequency = 1
+	temperature.frequency = 10
 
 func _process(_delta):
 	var player = game.player
@@ -119,7 +119,7 @@ func fill_in_foliage(pos: Vector2):
 			var tile_x = pos.x - (chunk_width / 2) + x
 			var tile_y = pos.y - (chunk_width / 2) + y
 			var tile_type = get_cell_atlas_coords(0, Vector2i(tile_x, tile_y))
-			var temp_normalized = round(((temperature.get_noise_2d(tile_x, tile_y) + 1.0) * 0.5) * 20)
+			var temp_normalized = round(((temperature.get_noise_2d(tile_x, tile_y) + 1.0) * 0.5) * 25)
 
 			# Set foliage (weeds, flowers)
 			if tile_type == GRASS_TILE:
@@ -135,19 +135,20 @@ func fill_in_foliage(pos: Vector2):
 			elif tile_type == DARK_GRASS_TILE:
 				var key = str(tile_x) + "," + str(tile_y)
 				var world_coordinates = map_to_local(Vector2i(tile_x, tile_y))
-				if !tree_foliage_map.has(key):
-					if temp_normalized <= 4:
-						var tree_obj = tree_foliage_scene.instantiate() as TreeFoliage
-						add_sibling(tree_obj)
-						tree_obj.global_position = world_coordinates
-						tree_obj.init(TreeFoliage.TreeType.SMALL)
-						tree_foliage_map[key] = tree_obj
-					elif temp_normalized > 4 and temp_normalized <= 6:
-						var tree_obj = tree_foliage_scene.instantiate() as TreeFoliage
-						add_sibling(tree_obj)
-						tree_obj.global_position = world_coordinates
-						tree_obj.init(TreeFoliage.TreeType.LARGE)
-						tree_foliage_map[key] = tree_obj
+				if !foliage_map.has(key) and temp_normalized <= 8:
+					var foliage_obj = foliage_scene.instantiate() as Foliage
+					add_sibling(foliage_obj)
+					foliage_obj.global_position = world_coordinates
+					foliage_map[key] = foliage_obj
+					if temp_normalized == 5:
+						foliage_obj.init(Foliage.FoliageType.WEED)
+					elif temp_normalized == 6:
+						foliage_obj.init(Foliage.FoliageType.SHRUB)
+					elif temp_normalized == 7:
+						foliage_obj.init(Foliage.FoliageType.SMALL_TREE)
+					elif temp_normalized == 8:
+						foliage_obj.init(Foliage.FoliageType.LARGE_TREE)
+
 				
 
 
@@ -366,9 +367,9 @@ func clear_chunk(pos):
 				var key = str(tile_x) + "," + str(tile_y)
 
 				# Clear out foliage
-				if tree_foliage_map.has(key):
-					tree_foliage_map[key].queue_free()
-					tree_foliage_map.erase(key)
+				if foliage_map.has(key):
+					foliage_map[key].queue_free()
+					foliage_map.erase(key)
 
 				# Clear tile by setting to -1, -1
 				set_cell(0, Vector2i(tile_x, tile_y), -1, Vector2(-1, -1))
