@@ -6,8 +6,8 @@ var moisture = FastNoiseLite.new()
 var temperature = FastNoiseLite.new()
 
 # chunk width and height in tiles
-var chunk_width = 32
-var chunk_height = 32
+var chunk_width = 24
+var chunk_height = 20
 
 @onready var game = get_node("/root/Main") as Game
 @export var foliage_scene: PackedScene
