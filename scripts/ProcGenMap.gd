@@ -14,6 +14,7 @@ var chunk_height = 20
 
 var loaded_chunks = []
 var foliage_map = {}
+var foliage_recycling_bin = {}
 
 # Dark grass tile indices
 var DARK_GRASS_TILE = Vector2i(0, 0)
@@ -136,21 +137,42 @@ func fill_in_foliage(pos: Vector2):
 				var key = str(tile_x) + "," + str(tile_y)
 				var world_coordinates = map_to_local(Vector2i(tile_x, tile_y))
 				if !foliage_map.has(key) and temp_normalized <= 8:
-					var foliage_obj = foliage_scene.instantiate() as Foliage
-					add_sibling(foliage_obj)
-					foliage_obj.global_position = world_coordinates
-					foliage_map[key] = foliage_obj
 					if temp_normalized == 5:
-						foliage_obj.init(Foliage.FoliageType.WEED)
+						if can_recycle_obj("WEED"):
+							recycle_obj("WEED", key, world_coordinates)
+						else:
+							create_new_foliage_object(Foliage.FoliageType.WEED, key, world_coordinates)
 					elif temp_normalized == 6:
-						foliage_obj.init(Foliage.FoliageType.SHRUB)
+						if can_recycle_obj("SHRUB"):
+							recycle_obj("SHRUB", key, world_coordinates)
+						else:
+							create_new_foliage_object(Foliage.FoliageType.SHRUB, key, world_coordinates)
 					elif temp_normalized == 7:
-						foliage_obj.init(Foliage.FoliageType.SMALL_TREE)
+						if can_recycle_obj("SMALL_TREE"):
+							recycle_obj("SMALL_TREE", key, world_coordinates)
+						else:
+							create_new_foliage_object(Foliage.FoliageType.SMALL_TREE, key, world_coordinates)
 					elif temp_normalized == 8:
-						foliage_obj.init(Foliage.FoliageType.LARGE_TREE)
+						if can_recycle_obj("LARGE_TREE"):
+							recycle_obj("LARGE_TREE", key, world_coordinates)
+						else:
+							create_new_foliage_object(Foliage.FoliageType.LARGE_TREE, key, world_coordinates)
 
-				
+func can_recycle_obj(key_name: String):
+	return foliage_recycling_bin.has(key_name) and foliage_recycling_bin[key_name].size() > 0
 
+func recycle_obj(key_name: String, coord_key: String, world_coordinates: Vector2):
+	var foliage_obj = foliage_recycling_bin[key_name].pop_back() as Foliage
+	foliage_obj.visible = true
+	foliage_obj.global_position = world_coordinates
+	foliage_map[coord_key] = foliage_obj
+
+func create_new_foliage_object(foliage_type: Foliage.FoliageType, coord_key: String, world_coordinates: Vector2):
+	var foliage_obj = foliage_scene.instantiate() as Foliage
+	add_sibling(foliage_obj)
+	foliage_obj.init(foliage_type)
+	foliage_obj.global_position = world_coordinates
+	foliage_map[coord_key] = foliage_obj
 
 	
 func get_neighbors(pos: Vector2):
@@ -368,7 +390,8 @@ func clear_chunk(pos):
 
 				# Clear out foliage
 				if foliage_map.has(key):
-					foliage_map[key].queue_free()
+					var foliage_obj = foliage_map[key]
+					add_to_recycling_bin(foliage_obj)
 					foliage_map.erase(key)
 
 				# Clear tile by setting to -1, -1
@@ -377,3 +400,23 @@ func clear_chunk(pos):
 func dist(p1, p2):
 	var r = p1 - p2
 	return sqrt(r.x ** 2 + r.y ** 2)
+
+func add_to_recycling_bin(foliage_obj: Foliage):
+	foliage_obj.visible = false
+	match foliage_obj.foliage_type:
+		Foliage.FoliageType.WEED:
+			if !foliage_recycling_bin.has("WEED"):
+				foliage_recycling_bin["WEED"] = []
+			foliage_recycling_bin["WEED"].append(foliage_obj)
+		Foliage.FoliageType.SHRUB:
+			if !foliage_recycling_bin.has("SHRUB"):
+				foliage_recycling_bin["SHRUB"] = []
+			foliage_recycling_bin["SHRUB"].append(foliage_obj)
+		Foliage.FoliageType.SMALL_TREE:
+			if !foliage_recycling_bin.has("SMALL_TREE"):
+				foliage_recycling_bin["SMALL_TREE"] = []
+			foliage_recycling_bin["SMALL_TREE"].append(foliage_obj)
+		Foliage.FoliageType.LARGE_TREE:
+			if !foliage_recycling_bin.has("LARGE_TREE"):
+				foliage_recycling_bin["LARGE_TREE"] = []
+			foliage_recycling_bin["LARGE_TREE"].append(foliage_obj)
