@@ -1,13 +1,13 @@
 [gd_scene load_steps=9 format=3 uid="uid://ca6iv0stxicwi"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_oyscp"]
-[ext_resource type="Texture2D" uid="uid://cpd8in0gsjn50" path="res://assets/wizard-placeholder.png" id="2_wf1ji"]
+[ext_resource type="Texture2D" uid="uid://0voy830m0vb4" path="res://assets/wizard.png" id="2_nrd15"]
 [ext_resource type="PackedScene" uid="uid://c23iqxymfhtb3" path="res://prefabs/SpellProgressMenu.tscn" id="3_oq4xi"]
 [ext_resource type="PackedScene" uid="uid://vjlox1ap5cbw" path="res://prefabs/LevelUpMenu.tscn" id="3_y1nfg"]
 [ext_resource type="PackedScene" uid="uid://c6n4kgcfvt4sq" path="res://prefabs/SpellBindMenu.tscn" id="4_dv0o4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ctlwm"]
-size = Vector2(32, 32)
+size = Vector2(36, 58)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cpirc"]
 bg_color = Color(0.905882, 0.298039, 0.235294, 1)
@@ -29,8 +29,7 @@ collision_mask = 4
 script = ExtResource("1_oyscp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(2, 2)
-texture = ExtResource("2_wf1ji")
+texture = ExtResource("2_nrd15")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ctlwm")
