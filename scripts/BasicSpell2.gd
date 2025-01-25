@@ -13,7 +13,7 @@ var directions = [
 ]
 
 func _ready():
-	spell_name = "Basic Spell 2"
+	spell_name = "BASIC_SPELL_2"
 	spell_range = 150
 	cooldown_seconds = 1.0
 	spell_icon_path = "res://icon.svg"

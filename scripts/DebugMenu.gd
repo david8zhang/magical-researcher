@@ -14,4 +14,4 @@ func deal_damage_to_player():
 
 func unlock_basic_spell():
 	var spell_progress_menu = game.player.spell_progress_menu
-	spell_progress_menu.force_unlock_spell("Basic Spell")
+	spell_progress_menu.force_unlock_spell("BASIC_SPELL")

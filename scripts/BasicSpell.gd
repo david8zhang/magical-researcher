@@ -9,7 +9,7 @@ var did_cast = false
 func _ready():
 	spell_range = 150
 	cooldown_seconds = 1.0
-	spell_name = "Basic Spell"
+	spell_name = "BASIC_SPELL"
 	spell_icon_path = "res://icon.svg"
 
 func cast(start_position: Vector2, target_position: Vector2, side: Game.Side):

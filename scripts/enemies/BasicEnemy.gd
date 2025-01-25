@@ -6,7 +6,7 @@ extends Enemy
 
 func _ready():
 	vision_radius = 200
-	active_spell = SpellManager.instance.create_spell("Basic Spell 2")
+	active_spell = SpellManager.instance.create_spell("BASIC_SPELL_2")
 	active_spell.caster = self
 	add_child(active_spell)
 	
