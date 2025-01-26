@@ -12,6 +12,7 @@ size = Vector2(26, 26)
 bg_color = Color(1, 0, 0, 1)
 
 [node name="BasicEnemy" type="RigidBody2D"]
+y_sort_enabled = true
 collision_layer = 2
 collision_mask = 4
 gravity_scale = 2.66454e-15
@@ -20,7 +21,7 @@ script = ExtResource("1_dablm")
 spell_point_scene = ExtResource("2_hdgsx")
 
 [node name="BasicEnemyAI" parent="." node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("2_e4t6s")]
-blackboard = NodePath("@Node@19692")
+blackboard = NodePath("@Node@48843")
 actor = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

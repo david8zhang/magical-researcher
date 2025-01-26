@@ -11,10 +11,12 @@ var chunk_height = 20
 
 @onready var game = get_node("/root/Main") as Game
 @export var foliage_scene: PackedScene
+@export var enemy_spawner_scene: PackedScene
 
 var loaded_chunks = []
 var foliage_map = {}
 var foliage_recycling_bin = {}
+var enemy_spawner_map = {}
 
 # Dark grass tile indices
 var DARK_GRASS_TILE = Vector2i(0, 0)
@@ -136,7 +138,7 @@ func fill_in_foliage(pos: Vector2):
 			elif tile_type == DARK_GRASS_TILE:
 				var key = str(tile_x) + "," + str(tile_y)
 				var world_coordinates = map_to_local(Vector2i(tile_x, tile_y))
-				if !foliage_map.has(key) and temp_normalized <= 8:
+				if !foliage_map.has(key) and temp_normalized <= 9:
 					if temp_normalized == 5:
 						if can_recycle_obj("WEED"):
 							recycle_obj("WEED", key, world_coordinates)
@@ -157,6 +159,14 @@ func fill_in_foliage(pos: Vector2):
 							recycle_obj("LARGE_TREE", key, world_coordinates)
 						else:
 							create_new_foliage_object(Foliage.FoliageType.LARGE_TREE, key, world_coordinates)
+					elif temp_normalized == 9 and int(tile_x) % 10 == 0:
+						if !enemy_spawner_map.has(key):
+							# Place an enemy spawner here
+							var new_enemy_spawner = enemy_spawner_scene.instantiate() as EnemySpawner
+							new_enemy_spawner.enemy_type_to_spawn = "BASIC_ENEMY"
+							new_enemy_spawner.global_position = world_coordinates
+							add_sibling(new_enemy_spawner)
+							enemy_spawner_map[key] = new_enemy_spawner
 
 func can_recycle_obj(key_name: String):
 	return foliage_recycling_bin.has(key_name) and foliage_recycling_bin[key_name].size() > 0
@@ -393,6 +403,13 @@ func clear_chunk(pos):
 					var foliage_obj = foliage_map[key]
 					add_to_recycling_bin(foliage_obj)
 					foliage_map.erase(key)
+
+				# Clear out enemy spawner
+				if enemy_spawner_map.has(key):
+					var enemy_spawner = enemy_spawner_map[key]
+					enemy_spawner.remove()
+					enemy_spawner.queue_free()
+					enemy_spawner_map.erase(key)
 
 				# Clear tile by setting to -1, -1
 				set_cell(0, Vector2i(tile_x, tile_y), -1, Vector2(-1, -1))

@@ -4,7 +4,7 @@ extends Node2D
 var spawn_timer
 var enemies = []
 
-@export var max_enemies = 5
+@export var max_enemies = 3
 @export var time_between_spawn = 5.0
 @export var enemy_type_to_spawn: String = ""
 
@@ -31,3 +31,7 @@ func _process(_delta):
 		if is_instance_valid(e):
 			new_enemies.append(e)
 	enemies = new_enemies
+
+func remove():
+	for e in enemies:
+		e.queue_free()
