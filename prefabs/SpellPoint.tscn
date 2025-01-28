@@ -10,6 +10,7 @@ radius = 4.0
 radius = 4.0
 
 [node name="SpellPoint" type="RigidBody2D"]
+y_sort_enabled = true
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_ckdk1")

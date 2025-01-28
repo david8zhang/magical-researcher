@@ -159,7 +159,7 @@ func fill_in_foliage(pos: Vector2):
 							recycle_obj("LARGE_TREE", key, world_coordinates)
 						else:
 							create_new_foliage_object(Foliage.FoliageType.LARGE_TREE, key, world_coordinates)
-					elif temp_normalized == 9 and int(tile_x) % 10 == 0:
+					elif temp_normalized == 9 and int(tile_x) % 20 == 0:
 						if !enemy_spawner_map.has(key):
 							# Place an enemy spawner here
 							var new_enemy_spawner = enemy_spawner_scene.instantiate() as EnemySpawner

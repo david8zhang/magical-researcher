@@ -23,6 +23,7 @@ func confirm_spell_binding():
 	var player = game.player as Player
 	if spell_bind_option_1.spell_ref != null:
 		player.active_spell = spell_bind_option_1.spell_ref
+		player.active_spell.caster = player
 	player.spell_progress_menu.hide()
 	hide()
 

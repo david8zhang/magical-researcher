@@ -25,7 +25,6 @@ func cast(start_position: Vector2, _target_position: Vector2, side: Game.Side):
 		for dir in directions:
 			var new_projectile = projectile.instantiate() as BasicSpellProjectile
 			new_projectile.spell_ref = self
-			projectiles.append(new_projectile)
 			game.add_child(new_projectile)
 			new_projectile.detector.set_collision_layer_value(3, true)
 			if side == Game.Side.Player:
@@ -34,6 +33,8 @@ func cast(start_position: Vector2, _target_position: Vector2, side: Game.Side):
 				new_projectile.detector.set_collision_mask_value(1, true)
 			new_projectile.global_position = Vector2(start_position.x, start_position.y)
 			new_projectile.linear_velocity = dir * projectile_speed
+			projectiles.append(new_projectile)
+
 
 		# Expire projectiles
 		var proj_remove_timer = Timer.new()

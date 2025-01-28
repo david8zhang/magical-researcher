@@ -18,5 +18,5 @@ func on_death():
 	var spell_point = spell_point_scene.instantiate() as SpellPoint
 	active_spell.reparent(spell_point)
 	spell_point.spell_ref = active_spell
-	spell_point.global_position = Vector2(global_position.x, global_position.y)
 	add_sibling(spell_point)
+	spell_point.global_position = Vector2(global_position.x, global_position.y)
