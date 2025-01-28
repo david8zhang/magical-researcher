@@ -1,7 +1,7 @@
 class_name BasicSpellProjectile
 extends Node2D
 
-var spell_ref: BasicSpell
+var spell_ref: DamageSpell
 @onready var detector = $Detector as Area2D
 
 func _ready():

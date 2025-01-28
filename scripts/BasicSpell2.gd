@@ -35,7 +35,6 @@ func cast(start_position: Vector2, _target_position: Vector2, side: Game.Side):
 			new_projectile.linear_velocity = dir * projectile_speed
 			projectiles.append(new_projectile)
 
-
 		# Expire projectiles
 		var proj_remove_timer = Timer.new()
 		proj_remove_timer.wait_time = 5

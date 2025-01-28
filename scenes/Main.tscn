@@ -88,3 +88,6 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 grow_horizontal = 2
+
+[node name="BasicEnemy" parent="." instance=ExtResource("6_mg6fa")]
+position = Vector2(341, 333)
