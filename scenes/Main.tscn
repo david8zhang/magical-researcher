@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cgsrq1uro672h" path="res://prefabs/EnemySpawner.tscn" id="5_m3u3s"]
 [ext_resource type="PackedScene" uid="uid://8ci0q8sn5c17" path="res://prefabs/enemies/BasicEnemy.tscn" id="6_mg6fa"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0xgob"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4fee0"]
 texture = ExtResource("3_8bm7q")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
@@ -29,6 +29,7 @@ texture_region_size = Vector2i(32, 32)
 12:0/0 = 0
 13:0/0 = 0
 14:0/0 = 0
+15:0/0 = 0
 0:1/0 = 0
 1:1/0 = 0
 2:1/0 = 0
@@ -44,6 +45,7 @@ texture_region_size = Vector2i(32, 32)
 12:1/0 = 0
 13:1/0 = 0
 14:1/0 = 0
+15:1/0 = 0
 0:2/0 = 0
 1:2/0 = 0
 2:2/0 = 0
@@ -52,7 +54,7 @@ texture_region_size = Vector2i(32, 32)
 
 [sub_resource type="TileSet" id="TileSet_iyu7n"]
 tile_size = Vector2i(32, 32)
-sources/0 = SubResource("TileSetAtlasSource_0xgob")
+sources/0 = SubResource("TileSetAtlasSource_4fee0")
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true

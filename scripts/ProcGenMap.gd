@@ -32,8 +32,9 @@ var DARK_GRASS_NORTH_CORNER = Vector2i(9, 0)
 var DARK_GRASS_SOUTH_CORNER = Vector2i(10, 0)
 var DARK_GRASS_WEST_CORNER = Vector2i(11, 0)
 var DARK_GRASS_EAST_CORNER = Vector2i(12, 0)
-var DARK_GRASS_TUNNEL = Vector2i(13, 0)
-var DARK_GRASS_PATCH = Vector2i(14, 0)
+var DARK_GRASS_TUNNEL_HORIZ = Vector2i(13, 0)
+var DARK_GRASS_TUNNEL_VERT = Vector2i(14, 0)
+var DARK_GRASS_PATCH = Vector2i(15, 0)
 
 # Dirt tile indices
 var DIRT_TILE = Vector2i(0, 1)
@@ -49,8 +50,9 @@ var DIRT_NORTH_CORNER = Vector2i(9, 1)
 var DIRT_SOUTH_CORNER = Vector2i(10, 1)
 var DIRT_WEST_CORNER = Vector2i(11, 1)
 var DIRT_EAST_CORNER = Vector2i(12, 1)
-var DIRT_TUNNEL = Vector2i(13, 1)
-var DIRT_PATCH = Vector2i(14, 1)
+var DIRT_TUNNEL_HORIZ = Vector2i(13, 1)
+var DIRT_TUNNEL_VERT = Vector2i(14, 1)
+var DIRT_PATCH = Vector2i(15, 1)
 
 # Other tiles
 var GRASS_TILE = Vector2i(0, 2)
@@ -223,8 +225,10 @@ func get_tile_type(pos: Vector2):
 			return DIRT_WEST_CORNER
 		elif is_east_corner(pos):
 			return DIRT_EAST_CORNER
-		elif is_tunnel(pos):
-			return DIRT_TUNNEL
+		elif is_tunnel_horiz(pos):
+			return DIRT_TUNNEL_HORIZ
+		elif is_tunnel_vert(pos):
+			return DIRT_TUNNEL_VERT
 		elif is_patch(pos):
 			return DIRT_PATCH
 		else:
@@ -254,8 +258,10 @@ func get_tile_type(pos: Vector2):
 			return DARK_GRASS_WEST_CORNER
 		elif is_east_corner(pos):
 			return DARK_GRASS_EAST_CORNER
-		elif is_tunnel(pos):
-			return DARK_GRASS_TUNNEL
+		elif is_tunnel_horiz(pos):
+			return DARK_GRASS_TUNNEL_HORIZ
+		elif is_tunnel_vert(pos):
+			return DARK_GRASS_TUNNEL_VERT
 		elif is_patch(pos):
 			return DARK_GRASS_PATCH
 		else:
@@ -367,13 +373,21 @@ func is_east_corner(pos: Vector2):
 		and neighbors[2].y == curr_cell.y \
 		and neighbors[3].y != curr_cell.y
 
-func is_tunnel(pos: Vector2):
+func is_tunnel_horiz(pos: Vector2):
 	var neighbors = get_neighbors(pos)
 	var curr_cell = get_cell_atlas_coords(0, pos)
 	return neighbors[0].y != curr_cell.y \
 		and neighbors[1].y != curr_cell.y \
 		and neighbors[2].y == curr_cell.y \
 		and neighbors[3].y == curr_cell.y
+
+func is_tunnel_vert(pos: Vector2):
+	var neighbors = get_neighbors(pos)
+	var curr_cell = get_cell_atlas_coords(0, pos)
+	return neighbors[0].y == curr_cell.y \
+		and neighbors[1].y == curr_cell.y \
+		and neighbors[2].y != curr_cell.y \
+		and neighbors[3].y != curr_cell.y
 
 func is_patch(pos: Vector2):
 	var neighbors = get_neighbors(pos)
