@@ -12,3 +12,6 @@ var spell_icon_path: String
 
 func cast(_start_position: Vector2, _target_position: Vector2, _side: Game.Side):
 	pass
+
+func get_readable_name():
+	pass

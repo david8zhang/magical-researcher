@@ -5,6 +5,7 @@ extends HBoxContainer
 @onready var unlock_progress = $ProgressBar as ProgressBar
 @onready var map_button = $Button as Button
 @onready var game = get_node("/root/Main") as Game
+var is_unlocked = false
 
 var spell_ref: DamageSpell
 
@@ -23,5 +24,6 @@ func on_add_to_book(spell: DamageSpell):
 	unlock_progress.max_value = spell.unlock_cost
 
 func unlock():
+	is_unlocked = true
 	unlock_progress.hide()
 	map_button.show()

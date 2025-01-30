@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://c7lngg8cjax0u"]
+[gd_scene load_steps=14 format=3 uid="uid://c7lngg8cjax0u"]
 
 [ext_resource type="Script" path="res://scripts/Game.gd" id="1_56j8m"]
+[ext_resource type="PackedScene" uid="uid://c4fksyyd3ixqq" path="res://prefabs/SpellUnlockAlert.tscn" id="2_0ownd"]
 [ext_resource type="PackedScene" uid="uid://ca6iv0stxicwi" path="res://prefabs/Player.tscn" id="2_nutke"]
 [ext_resource type="PackedScene" uid="uid://domjmq360jx24" path="res://prefabs/SpellManager.tscn" id="2_wtpks"]
 [ext_resource type="Texture2D" uid="uid://0j5pldlh2qhw" path="res://assets/forest-tileset.png" id="3_8bm7q"]
@@ -59,6 +60,7 @@ sources/0 = SubResource("TileSetAtlasSource_4fee0")
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_56j8m")
+spell_unlock_alert_scene = ExtResource("2_0ownd")
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -1
@@ -90,6 +92,3 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 grow_horizontal = 2
-
-[node name="BasicEnemy" parent="." instance=ExtResource("6_mg6fa")]
-position = Vector2(341, 333)

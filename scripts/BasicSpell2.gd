@@ -18,6 +18,9 @@ func _ready():
 	cooldown_seconds = 1.0
 	spell_icon_path = "res://icon.svg"
 
+func get_readable_name():
+	return "Basic Spell 2"
+
 func cast(start_position: Vector2, _target_position: Vector2, side: Game.Side):
 	if !did_cast:
 		did_cast = true
@@ -70,6 +73,7 @@ func on_projectile_hit(body: Node):
 		enemy.take_damage(damage)
 	elif body is Player:
 		var player = body as Player
-		var enemy_caster = caster as Enemy
-		var damage = spell_power * (enemy_caster.attack / player.defense)
-		player.take_damage(damage)
+		if is_instance_valid(caster):
+			var enemy_caster = caster as Enemy
+			var damage = spell_power * (enemy_caster.attack / player.defense)
+			player.take_damage(damage)

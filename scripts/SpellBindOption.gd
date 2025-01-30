@@ -15,7 +15,7 @@ var spell_ref
 
 func bind_spell(spell_to_bind: DamageSpell):
 	spell_ref = spell_bind_menu.spell_to_bind
-	spell_label.text = spell_to_bind.spell_name
+	spell_label.text = spell_to_bind.get_readable_name()
 	spell_icon.texture = load(spell_to_bind.spell_icon_path)
 
 func unbind_spell():

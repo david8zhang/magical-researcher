@@ -12,6 +12,9 @@ func _ready():
 	spell_name = "BASIC_SPELL"
 	spell_icon_path = "res://icon.svg"
 
+func get_readable_name():
+	return "Basic Spell"
+
 func cast(start_position: Vector2, target_position: Vector2, side: Game.Side):
 	if !did_cast:
 		did_cast = true

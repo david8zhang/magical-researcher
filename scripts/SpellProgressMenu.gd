@@ -2,6 +2,7 @@ class_name SpellProgressMenu
 extends Control
 
 @export var spell_row_scene: PackedScene
+@onready var game = get_node("/root/Main") as Game
 @onready var spell_menu = $Panel/ScrollContainer/MarginContainer/VBoxContainer as VBoxContainer
 var spell_rows_map = {}
 
@@ -18,9 +19,12 @@ func add_progress_to_spell(spell: DamageSpell):
 		spell_rows_map[spell.spell_name] = new_spell_row
 	else:
 		var spell_row = spell_rows_map[spell.spell_name]
-		spell_row.unlock_progress.value += 1
-		if spell_row.unlock_progress.value >= spell_row.unlock_progress.max_value:
-			spell_row.unlock()
+		if !spell_row.is_unlocked:
+			spell_row.unlock_progress.value += 1
+			if spell_row.unlock_progress.value >= spell_row.unlock_progress.max_value:
+				spell_row.unlock()
+				var spell_ref = spell_row.spell_ref
+				game.create_new_spell_unlock_alert(spell_ref.get_readable_name())
 
 func force_unlock_spell(spell_name: String):
 	if spell_rows_map.has(spell_name):
