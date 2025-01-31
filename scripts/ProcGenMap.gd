@@ -421,7 +421,6 @@ func clear_chunk(pos):
 				# Clear out enemy spawner
 				if enemy_spawner_map.has(key):
 					var enemy_spawner = enemy_spawner_map[key]
-					enemy_spawner.remove()
 					enemy_spawner.queue_free()
 					enemy_spawner_map.erase(key)
 

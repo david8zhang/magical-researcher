@@ -2,6 +2,7 @@ class_name BasicEnemy
 extends Enemy
 
 @export var spell_point_scene: PackedScene
+@onready var sprite = $Sprite2D as Sprite2D
 @onready var health_bar = $ProgressBar
 
 func _ready():
