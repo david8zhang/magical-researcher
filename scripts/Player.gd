@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var level_up_menu = $CanvasLayer/LevelUpMenu as LevelUpMenu
 @onready var level_label = $CanvasLayer/LevelLabel as Label
 @onready var camera = $Camera2D as Camera2D
+@onready var sprite = $Sprite2D as AnimatedSprite2D
 var active_spell: DamageSpell
 
 # Stats
@@ -20,6 +21,17 @@ var exp_points = 0
 var curr_level = 1
 
 signal on_death
+
+enum WalkDirection {
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST,
+	NORTHEAST,
+	NORTHWEST,
+	SOUTHEAST,
+	SOUTHWEST
+}
 
 func _ready():
 	active_spell = SpellManager.instance.basic_spell.instantiate() as BasicSpell
@@ -42,14 +54,58 @@ func _physics_process(_delta):
 		new_velocity.y += 1
 	if Input.is_action_pressed("move_up"):
 		new_velocity.y -= 1
+
+	var walk_direction = -1
+	var velocity_normalized = new_velocity.normalized()
+	if velocity_normalized.x == 0 and velocity_normalized.y > 0:
+		walk_direction = WalkDirection.SOUTH
+	elif velocity_normalized.x == 0 and velocity_normalized.y < 0:
+		walk_direction = WalkDirection.NORTH
+	elif velocity_normalized.x > 0 and velocity_normalized.y == 0:
+		walk_direction = WalkDirection.EAST
+	elif velocity_normalized.x < 0 and velocity_normalized.y == 0:
+		walk_direction = WalkDirection.WEST
+	elif velocity_normalized.x < 0 and velocity_normalized.y < 0:
+		walk_direction = WalkDirection.NORTHWEST
+	elif velocity_normalized.x > 0 and velocity_normalized.y < 0:
+		walk_direction = WalkDirection.NORTHEAST
+	elif velocity_normalized.x < 0 and velocity_normalized.y > 0:
+		walk_direction = WalkDirection.SOUTHWEST
+	elif velocity_normalized.x > 0 and velocity_normalized.y > 0:
+		walk_direction = WalkDirection.SOUTHEAST
+	play_anim_based_on_direction(walk_direction)
 	velocity = new_velocity.normalized() * speed
 	move_and_slide()
-
 	if Input.is_action_just_pressed("toggle_spell_menu"):
 		if spell_progress_menu.visible:
 			spell_progress_menu.hide()
 		else:
 			spell_progress_menu.show()
+
+func play_anim_based_on_direction(direction: WalkDirection):
+	match direction:
+		WalkDirection.NORTH:
+			sprite.play("walk-front")
+		WalkDirection.SOUTH:
+			sprite.play("walk-front")
+		WalkDirection.WEST:
+			sprite.flip_h = true
+			sprite.play("walk-side")
+		WalkDirection.EAST:
+			sprite.flip_h = false
+			sprite.play("walk-side")
+		WalkDirection.NORTHWEST:
+			sprite.flip_h = false
+			sprite.play("walk-northwest")
+		WalkDirection.NORTHEAST:
+			sprite.flip_h = true
+			sprite.play("walk-northwest")
+		WalkDirection.SOUTHWEST:
+			sprite.flip_h = true
+			sprite.play("walk-southeast")
+		WalkDirection.SOUTHEAST:
+			sprite.flip_h = false
+			sprite.play("walk-southeast")
 
 func _input(event):
 	# Ignore click events if spell book is open
