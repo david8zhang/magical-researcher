@@ -80,6 +80,7 @@ basic_enemy = ExtResource("6_mg6fa")
 [node name="Player" parent="." instance=ExtResource("2_nutke")]
 y_sort_enabled = false
 position = Vector2(576, 324)
+scale = Vector2(1.5, 1.5)
 slide_on_ceiling = false
 
 [node name="Camera2D" type="Camera2D" parent="Player"]

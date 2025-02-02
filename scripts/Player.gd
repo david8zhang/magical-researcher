@@ -74,6 +74,9 @@ func _physics_process(_delta):
 	elif velocity_normalized.x > 0 and velocity_normalized.y > 0:
 		walk_direction = WalkDirection.SOUTHEAST
 	play_anim_based_on_direction(walk_direction)
+	if new_velocity.normalized() == Vector2.ZERO:
+		sprite.stop()
+
 	velocity = new_velocity.normalized() * speed
 	move_and_slide()
 	if Input.is_action_just_pressed("toggle_spell_menu"):
@@ -85,7 +88,7 @@ func _physics_process(_delta):
 func play_anim_based_on_direction(direction: WalkDirection):
 	match direction:
 		WalkDirection.NORTH:
-			sprite.play("walk-front")
+			sprite.play("walk-back")
 		WalkDirection.SOUTH:
 			sprite.play("walk-front")
 		WalkDirection.WEST:
