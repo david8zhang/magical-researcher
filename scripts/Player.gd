@@ -84,6 +84,11 @@ func _physics_process(_delta):
 			spell_progress_menu.hide()
 		else:
 			spell_progress_menu.show()
+	if Input.is_action_just_pressed("toggle_stat_menu"):
+		if level_up_menu.visible:
+			level_up_menu.hide()
+		else:
+			level_up_menu.show_menu(self)
 
 func play_anim_based_on_direction(direction: WalkDirection):
 	match direction:
@@ -147,7 +152,7 @@ func on_level_up():
 	level_label.text = "Lv. " + str(curr_level)
 	level_up_text_effect()
 	expbar.max_value = 100 * 2 ** (curr_level - 1)
-	level_up_menu.setup_on_level_up(self)
+	level_up_menu.num_stat_points += 1
 
 func level_up_text_effect():
 	var label = Label.new()

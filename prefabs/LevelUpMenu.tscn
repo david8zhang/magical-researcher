@@ -21,9 +21,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -98.5
-offset_top = -123.0
-offset_right = 98.5
+offset_left = -159.0
+offset_top = -161.0
+offset_right = 159.0
 offset_bottom = 123.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -32,13 +32,23 @@ grow_vertical = 2
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 8.0
-offset_bottom = 39.0
+offset_top = 7.0
+offset_bottom = 38.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 20
 text = "Level Up"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="StatPoints" type="RichTextLabel" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 44.0
+offset_bottom = 75.0
+grow_horizontal = 2
+bbcode_enabled = true
+text = "[center][i]Available Points: 0[i][center]"
 
 [node name="ConfirmButton" type="Button" parent="Panel"]
 layout_mode = 1
@@ -56,11 +66,15 @@ grow_vertical = 0
 text = "Confirm"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
-layout_mode = 2
-offset_left = 12.0
-offset_top = 51.0
-offset_right = 184.0
-offset_bottom = 194.0
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 9.0
+offset_top = -60.0
+offset_right = -9.0
+offset_bottom = 76.0
 grow_horizontal = 2
 grow_vertical = 2
 

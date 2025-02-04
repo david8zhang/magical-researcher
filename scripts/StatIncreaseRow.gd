@@ -13,8 +13,9 @@ func _ready():
 	stat_name.text = stat_name_value
 
 func on_increase_stat():
-	if !level_up_menu.stat_increased:
-		level_up_menu.stat_increased = true
+	if level_up_menu.num_stat_points > 0:
+		# level_up_menu.stat_increased -= 1
+		level_up_menu.decrease_stat_points()
 		var stat_value_int = stat_value.text.to_int()
 		if stat_name_value == "Max HP" or stat_name_value == "Speed":
 			stat_value_int += 10
