@@ -161,14 +161,20 @@ func fill_in_foliage(pos: Vector2):
 							recycle_obj("LARGE_TREE", key, world_coordinates)
 						else:
 							create_new_foliage_object(Foliage.FoliageType.LARGE_TREE, key, world_coordinates)
-					elif temp_normalized == 9 and int(tile_x) % 20 == 0:
-						if !enemy_spawner_map.has(key):
-							# Place an enemy spawner here
+					elif temp_normalized == 9:
+						# Space enemy spawners apart
+						if !enemy_spawner_map.has(key) and dist_to_closest_enemy_spawner(world_coordinates) > 1000:
 							var new_enemy_spawner = enemy_spawner_scene.instantiate() as EnemySpawner
 							new_enemy_spawner.enemy_type_to_spawn = "BASIC_ENEMY"
 							new_enemy_spawner.global_position = world_coordinates
 							add_sibling(new_enemy_spawner)
 							enemy_spawner_map[key] = new_enemy_spawner
+
+func dist_to_closest_enemy_spawner(world_coordinates):
+	var min_distance = INF
+	for spawner in enemy_spawner_map.values():
+		min_distance = min(min_distance, spawner.global_position.distance_to(world_coordinates))
+	return min_distance
 
 func can_recycle_obj(key_name: String):
 	return foliage_recycling_bin.has(key_name) and foliage_recycling_bin[key_name].size() > 0
