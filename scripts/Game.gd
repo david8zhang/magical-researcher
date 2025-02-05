@@ -27,7 +27,6 @@ func create_new_spell_unlock_alert(spell_name: String):
 	spell_unlock_alert.set_spell_name(spell_name)
 	spell_unlock_alert.show_popup()
 
-
 func _process(_delta):
 	var new_enemies = []
 	clean_up_offscreen_enemies()
@@ -35,7 +34,6 @@ func _process(_delta):
 		if is_instance_valid(e):
 			new_enemies.append(e)
 	enemies_in_world = new_enemies
-
 
 func clean_up_offscreen_enemies():
 	for e in enemies_in_world:

@@ -20,6 +20,8 @@ var max_hp = 100
 var speed = 125
 var exp_reward = 100
 
+signal on_damage
+
 @onready var game = get_node("/root/Main") as Game
 @onready var healthbar = $ProgressBar as ProgressBar
 
@@ -63,6 +65,7 @@ func _get_random_destination():
 
 func take_damage(damage):
 	healthbar.value -= damage
+	on_damage.emit()
 	if healthbar.value == 0:
 		on_death()
 		queue_free()

@@ -1,0 +1,62 @@
+[gd_scene load_steps=11 format=3 uid="uid://d0s3jvur2wrgj"]
+
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="1_4tgb2"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="2_bmnsg"]
+[ext_resource type="Script" path="res://scripts/enemies/behaviors/SetupDamageDetector.gd" id="3_lc2ha"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="4_x0rtw"]
+[ext_resource type="Script" path="res://scripts/enemies/behaviors/Roam.gd" id="5_jyvfg"]
+[ext_resource type="Script" path="res://scripts/enemies/behaviors/IsAggro.gd" id="5_u3d8k"]
+[ext_resource type="Script" path="res://scripts/enemies/behaviors/IsPlayerWithinVisionRange.gd" id="6_j43ff"]
+[ext_resource type="Script" path="res://scripts/enemies/behaviors/IsPlayerWithinSpellRange.gd" id="7_jhj7c"]
+[ext_resource type="Script" path="res://scripts/enemies/behaviors/CastDamageSpell.gd" id="8_bhs5r"]
+[ext_resource type="Script" path="res://scripts/enemies/behaviors/ChasePlayer.gd" id="9_wgtnr"]
+
+[node name="NonAggroEnemyAI" type="Node" node_paths=PackedStringArray("blackboard", "actor")]
+script = ExtResource("1_4tgb2")
+blackboard = NodePath("@Node@354731")
+actor = NodePath("..")
+
+[node name="RootSequence" type="Node" parent="."]
+script = ExtResource("2_bmnsg")
+
+[node name="SetupDamageDetector" type="Node" parent="RootSequence"]
+script = ExtResource("3_lc2ha")
+
+[node name="AggroOrPeacefulSelector" type="Node" parent="RootSequence"]
+script = ExtResource("4_x0rtw")
+
+[node name="AggroBehavior" type="Node" parent="RootSequence/AggroOrPeacefulSelector"]
+script = ExtResource("2_bmnsg")
+
+[node name="IsAggro" type="Node" parent="RootSequence/AggroOrPeacefulSelector/AggroBehavior"]
+script = ExtResource("5_u3d8k")
+
+[node name="RootSelector" type="Node" parent="RootSequence/AggroOrPeacefulSelector/AggroBehavior"]
+script = ExtResource("4_x0rtw")
+
+[node name="Attack" type="Node" parent="RootSequence/AggroOrPeacefulSelector/AggroBehavior/RootSelector"]
+script = ExtResource("2_bmnsg")
+
+[node name="IsPlayerWithinVisionRange" type="Node" parent="RootSequence/AggroOrPeacefulSelector/AggroBehavior/RootSelector/Attack"]
+script = ExtResource("6_j43ff")
+
+[node name="CastSpell" type="Node" parent="RootSequence/AggroOrPeacefulSelector/AggroBehavior/RootSelector/Attack"]
+script = ExtResource("4_x0rtw")
+
+[node name="CastSpellSequence" type="Node" parent="RootSequence/AggroOrPeacefulSelector/AggroBehavior/RootSelector/Attack/CastSpell"]
+script = ExtResource("2_bmnsg")
+
+[node name="IsPlayerWithinSpellRange" type="Node" parent="RootSequence/AggroOrPeacefulSelector/AggroBehavior/RootSelector/Attack/CastSpell/CastSpellSequence"]
+script = ExtResource("7_jhj7c")
+
+[node name="CastDamageSpell" type="Node" parent="RootSequence/AggroOrPeacefulSelector/AggroBehavior/RootSelector/Attack/CastSpell/CastSpellSequence"]
+script = ExtResource("8_bhs5r")
+
+[node name="ChasePlayer" type="Node" parent="RootSequence/AggroOrPeacefulSelector/AggroBehavior/RootSelector/Attack/CastSpell"]
+script = ExtResource("9_wgtnr")
+
+[node name="Roam" type="Node" parent="RootSequence/AggroOrPeacefulSelector/AggroBehavior/RootSelector"]
+script = ExtResource("5_jyvfg")
+
+[node name="Roam" type="Node" parent="RootSequence/AggroOrPeacefulSelector"]
+script = ExtResource("5_jyvfg")

@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://tuu7vfk3ir56" path="res://icon.svg" id="1_ck1wg"]
 [ext_resource type="Script" path="res://scripts/enemies/BasicEnemy.gd" id="1_dablm"]
-[ext_resource type="PackedScene" uid="uid://bvhyeul1hncre" path="res://prefabs/enemies/BasicEnemyAI.tscn" id="2_e4t6s"]
 [ext_resource type="PackedScene" uid="uid://c6drgcs3erbtb" path="res://prefabs/SpellPoint.tscn" id="2_hdgsx"]
+[ext_resource type="PackedScene" uid="uid://d0s3jvur2wrgj" path="res://prefabs/enemies/NonAggroEnemyAI.tscn" id="3_r1s1w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s3gvr"]
 size = Vector2(26, 26)
@@ -20,9 +20,8 @@ lock_rotation = true
 script = ExtResource("1_dablm")
 spell_point_scene = ExtResource("2_hdgsx")
 
-[node name="BasicEnemyAI" parent="." node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("2_e4t6s")]
-blackboard = NodePath("@Node@226946")
-actor = NodePath("..")
+[node name="NonAggroEnemyAI" parent="." node_paths=PackedStringArray("blackboard") instance=ExtResource("3_r1s1w")]
+blackboard = NodePath("@Node@367092")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(1, 0, 0, 1)
